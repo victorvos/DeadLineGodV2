@@ -5,8 +5,8 @@ $(document).ready(function() {
     });
 
     $("#populations").click(function () {
-        $.get( "restservices/countries/largestpopulations", function( data ) {
-            $( "#countries" ).append( data );
+        $.get("restservices/countries/largestpopulations", function(data) {
+            $("#countries").append(data);
             console.log( "Load was performed." );
         });
     });
