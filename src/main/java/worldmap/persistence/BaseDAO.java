@@ -1,3 +1,4 @@
+package worldmap.persistence;
 /**
  * Created by Victor on 19-5-2016.
  */
