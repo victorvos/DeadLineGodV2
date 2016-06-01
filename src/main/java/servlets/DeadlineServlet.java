@@ -1,6 +1,7 @@
 package servlets;
 
-import model.BlogService;
+import model.DeadlineService;
+import model.Klas;
 import model.ServiceProvider;
 import model.User;
 
@@ -10,25 +11,32 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.constraints.NotNull;
 import java.io.IOException;
+import java.util.Date;
 
 /**
  * Created by Eigenaar on 22-5-2016.
  */
-public class BlogPostServlet extends HttpServlet{
-    private String onderwerp, text;
+public class DeadlineServlet extends HttpServlet{
+    private String naam, beschrijving, URI, datum;
+
+    int beoordeling;
+    Klas klas;
 
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        onderwerp = request.getParameter("subject");
-        text = request.getParameter("text");
+        naam = request.getParameter("naam");
+        beschrijving = request.getParameter("beschrijving");
+        URI = request.getParameter("URI");
+        datum = request.getParameter("datum");
 
         HttpSession session = request.getSession();
 
         RequestDispatcher rd = null;
 
-        BlogService service = ServiceProvider.getBlogService();
+        DeadlineService service = ServiceProvider.getDeadlineService();
         User userSession = (User) session.getAttribute("loggedUser");
 
 //        User user = service.logingUser(userSession.getUsername(), userSession.getPassword());
@@ -37,12 +45,12 @@ public class BlogPostServlet extends HttpServlet{
             rd = request.getRequestDispatcher("index.jsp");
             request.setAttribute("message", "<font color=red>U bent nog niet ingelogd</font>");
             rd.include(request, response);
-        } else if (onderwerp.isEmpty()||text.isEmpty()) {
+        } else if (naam.isEmpty()||datum.isEmpty()) {
             rd = request.getRequestDispatcher("/blogger/myaccount.jsp");
             request.setAttribute("message", "<font color=red>Vul alle velden in aub !</font>");
             rd.include(request, response);
         } else {
-            service.addBlogPostForUser(onderwerp, text, userSession);
+            service.addDeadlineForKlas(naam, beschrijving, URI, datum, beoordeling, klas);
             rd = request.getRequestDispatcher("/blogger/myaccount.jsp");
             rd.forward(request, response);
         }

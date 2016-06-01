@@ -9,7 +9,7 @@
 <%@ page import="model.BlogPost" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="model.ServiceProvider" %>
-<%@ page import="model.BlogService" %>
+<%@ page import="model.DeadlineService" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"

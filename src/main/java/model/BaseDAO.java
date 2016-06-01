@@ -1,4 +1,4 @@
-package worldmap.persistence;
+package model;
 /**
  * Created by Victor on 19-5-2016.
  */

@@ -9,26 +9,38 @@ import java.util.jar.Pack200;
  */
 public class User {
 
-    private String username = null;
-    private String password = null;
-    private String email = null;
-    private String name = null;
-    ArrayList<BlogPost> blogPosts = new ArrayList<BlogPost>();
+    private String userID;
+    private String password;
+    private String email;
+    private String naam;
+    private String tussenvoegsel;
+    private int isDocent;
+    private Klas k;
 
-
-    public User(String uNm, String pw, String em, String nm) {
-        username = uNm;
-        password = pw;
-        email = em;
-        name = nm;
+    public User(String password, String email, String naam, String tussenvoegsel, int isDocent, Klas k) {
+        this.password = password;
+        this.email = email;
+        this.naam = naam;
+        this.tussenvoegsel = tussenvoegsel;
+        this.isDocent = isDocent;
+        this.k = k;
     }
 
-    public String getUsername() {
-        return username;
+    public int isDocent() {
+        return isDocent;
+    }
+
+    public Klas getK() {
+        return k;
+    }
+
+
+    public String getUserID() {
+        return userID;
     }
 
     public String getName() {
-        return name;
+        return naam;
     }
 
     public String getEmail() {
@@ -45,12 +57,5 @@ public class User {
         return checkpw;
     }
 
-    public void addBlogPost(BlogPost bp){
-        blogPosts.add(bp);
-    }
-
-    public ArrayList<BlogPost> getMyPosts(){
-        return blogPosts;
-    }
 }
 

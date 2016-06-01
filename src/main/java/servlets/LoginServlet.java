@@ -1,6 +1,6 @@
 package servlets;
 
-import model.BlogService;
+import model.DeadlineService;
 import model.ServiceProvider;
 import model.User;
 
@@ -27,7 +27,7 @@ public class LoginServlet extends HttpServlet {
         HttpSession session = request.getSession();
         RequestDispatcher rd = null;
 
-        BlogService service = ServiceProvider.getBlogService();
+        DeadlineService service = ServiceProvider.getDeadlineService();
         User user = service.logingUser(gebruikersnaam, password);
 
         if (gebruikersnaam.isEmpty()||password.isEmpty()) {

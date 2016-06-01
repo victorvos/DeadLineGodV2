@@ -27,7 +27,7 @@
 
     <servlet>
         <servlet-name>blogservlet</servlet-name>
-        <servlet-class>servlets.BlogPostServlet</servlet-class>
+        <servlet-class>servlets.DeadlineServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>blogservlet</servlet-name>
