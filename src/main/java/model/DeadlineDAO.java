@@ -57,7 +57,7 @@ public class DeadlineDAO extends BaseDAO {
             sqle.printStackTrace();
         }
 
-        return country;
+        return d;
     }
 
     public List<Deadline> findAll(){
@@ -76,8 +76,8 @@ public class DeadlineDAO extends BaseDAO {
         return selectDeadlines("select * from deadline where datum BETWEEN TRUNC(sysdate, 'MONTH') and TRUNC(sysdate+30, 'MONTH')-1  from dual and KlasCode = "+k+")");
     }
 
-    public Deadline findByCode(String code) {
-        return selectDeadlines("select * from country where code = "+ code+ "").get(0);
+    public Deadline findByID(String ID) {
+        return selectDeadlines("select * from deadline where ID = "+ ID + "").get(0);
     }
 
     public Deadline update(Deadline d) {
