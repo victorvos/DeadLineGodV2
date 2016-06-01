@@ -49,7 +49,19 @@ public class User {
 
     public String getPassword(){ return password; }
 
-   public boolean checkPassword(String pw) {
+    public int getIsDocent() {
+        return isDocent;
+    }
+
+    public String getTussenvoegsel() {
+        return tussenvoegsel;
+    }
+
+    public String getNaam() {
+        return naam;
+    }
+
+    public boolean checkPassword(String pw) {
         boolean checkpw = false;
         if (pw.equals(password)) {
             checkpw = true;

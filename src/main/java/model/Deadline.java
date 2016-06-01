@@ -10,14 +10,16 @@ public class Deadline {
     private String datum;
     private int ID;
     private int beoordeling;
+    private Klas k;
 
-    public Deadline(String naam, String beschrijving, String URI, String datum, int ID, int beoordeling) {
+    public Deadline(String naam, String beschrijving, String URI, String datum, int ID, int beoordeling, Klas k) {
         this.naam = naam;
         this.beschrijving = beschrijving;
         this.URI = URI;
         this.datum = datum;
         this.ID = ID;
         this.beoordeling = beoordeling;
+        this.k = k;
     }
 
 

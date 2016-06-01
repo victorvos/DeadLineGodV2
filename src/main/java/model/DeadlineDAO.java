@@ -29,8 +29,9 @@ public class DeadlineDAO extends BaseDAO {
                 String URI = dbResultSet.getString("URI");
                 int beoordeling = dbResultSet.getInt("beoordeling");
                 String datum = String.valueOf(dbResultSet.getDate("datum"));
+                Klas k = new Klas(dbResultSet.getString("klasCode"));
 
-                Deadline deadline = new Deadline(naam, beschrijving, URI, datum, ID, beoordeling);
+                Deadline deadline = new Deadline(naam, beschrijving, URI, datum, ID, beoordeling, k);
                 results.add(deadline);
             }
 
@@ -92,7 +93,7 @@ public class DeadlineDAO extends BaseDAO {
             String datum = d.getDatum();
 
             Statement statement = con.createStatement();
-            statement.executeQuery("UPDATE country SET naam="+naam+", beschrijving"+beschrijving+", URI="+URI+", beoordeling="+beoordeling+", datum="+datum+" WHERE ID="+ID);
+            statement.executeQuery("UPDATE country SET naam="+naam+", beschrijving"+beschrijving+", URI="+URI+", beoordeling="+beoordeling+", datum="+datum+" WHERE ID="+ID+")");
 
         }catch (SQLException sqle) { sqle.printStackTrace(); }
 
