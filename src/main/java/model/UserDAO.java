@@ -11,9 +11,10 @@ import java.util.List;
  * Created by Eigenaar on 1-6-2016.
  */
 public class UserDAO extends BaseDAO {
+    public List<User> userList;
 
     private List<User> selectUsers(String query) {
-        List<User> results = new ArrayList<User>();
+        List<User> userList = new ArrayList<User>();
 
         try (Connection con = super.getConnection()){
 
@@ -29,15 +30,14 @@ public class UserDAO extends BaseDAO {
                 Klas k = new Klas(dbResultSet.getString("klasCode"));
 
                 User u = new User(password, email, naam, tussenvoegsel, isDocent, k);
-                results.add(u);
+                userList.add(u);
             }
 
         } catch (SQLException sqle) { sqle.printStackTrace(); }
-        return results;
+        return userList;
     }
 
-
-    public User save(User u) {
+    public User registerUserDB(User u) {
         try (Connection con = super.getConnection()) {
 
             String email = u.getEmail();
@@ -48,7 +48,7 @@ public class UserDAO extends BaseDAO {
             Klas k = u.getK();
 
             Statement statement = con.createStatement();
-            statement.executeQuery("INSERT INTO deadlines (password,email,naam,tussenvoegsel,isDocent, klasCode) VALUES" +
+            statement.executeQuery("INSERT INTO user (password,email,naam,tussenvoegsel,isDocent, klasCode) VALUES" +
                     "(" + password + "," + email + "," + naam + "," + tussenvoegsel + "," + isDocent + "," + k + ")");
 
         } catch (SQLException sqle) {
@@ -58,7 +58,27 @@ public class UserDAO extends BaseDAO {
         return u;
     }
 
-    public User update(User u) {
+    public User login(User u){
+        try (Connection con = super.getConnection()) {
+
+            String email = u.getEmail();
+            String password = u.getPassword();
+            String naam = u.getNaam();
+            int isDocent = u.getIsDocent();
+            String tussenvoegsel = u.getTussenvoegsel();
+            Klas k = u.getK();
+
+            Statement statement = con.createStatement();
+            statement.executeQuery("");                     /// NOG SCHRIJVEN !!
+
+        } catch (SQLException sqle) {
+            sqle.printStackTrace();
+        }
+
+        return u;
+    }
+
+    public User updateUser(User u) {
 
         try(Connection con = super.getConnection()) {
 
