@@ -18,7 +18,7 @@ import java.io.IOException;
 public class LoginServlet extends HttpServlet {
     private String gebruikersnaam, password;
     private model.UserDAO u;
-
+    private model.KlasDAO k;
 
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -40,7 +40,8 @@ public class LoginServlet extends HttpServlet {
             rd.include(request, response);
         } else if (u.login(user)){
             session.setAttribute("loggedUser", user);
-            rd = request.getRequestDispatcher("/blogger/mydeadlines.jsp");
+            session.setAttribute("klassen", k.findAll());
+            rd = request.getRequestDispatcher("/deadline/"+ user.getK() + "/mydeadlines.jsp");
             rd.forward(request, response);
         }
     }

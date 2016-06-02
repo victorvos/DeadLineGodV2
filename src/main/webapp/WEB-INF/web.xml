@@ -26,12 +26,12 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>blogservlet</servlet-name>
+        <servlet-name>deadlineservlet</servlet-name>
         <servlet-class>servlets.DeadlineServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>blogservlet</servlet-name>
-        <url-pattern>/blogger/blogpost.do</url-pattern>
+        <servlet-name>deadlineservlet</servlet-name>
+        <url-pattern>/deadline/*/mydeadlines.jsp/*</url-pattern>
     </servlet-mapping>
 
 
@@ -56,7 +56,7 @@
     </filter>
     <filter-mapping>
         <filter-name>MyFirstFilter</filter-name>
-        <url-pattern>/blogger/*</url-pattern>
+        <url-pattern>/deadline/*/mydeadlines.jsp/*</url-pattern>
         <dispatcher>REQUEST</dispatcher>
         <dispatcher>FORWARD</dispatcher>
     </filter-mapping>

@@ -1,4 +1,6 @@
-<%--
+<%@ page import="model.KlasDAO" %>
+<%@ page import="model.Klas" %>
+<%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: Victor
   Date: 26-4-2016
@@ -51,8 +53,8 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
+            </button>
         </div>
-
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
@@ -124,6 +126,20 @@
                 <div class="row control-group">
                     <div class="form-group col-xs-12 floating-label-form-group controls">
                         <label>Klas</label>
+                        <tr>
+                            <%
+                                KlasDAO d = null;
+                                Klas klassen = (Klas) session.getAttribute("klassen");
+
+                                request.setAttribute("klassen", klassen);
+                            %>
+                            <td><form:select path="klas">
+                                <form:option value="NONE" label="--- Select ---" />
+                                <form:options items="${klassen}" />
+                            </form:select>
+                            </td>
+                            <td><form:errors path="country" cssClass="error" /></td>
+                        </tr>
                         <input type="text" placeholder="Klas" name="klas" required data-validation-required-message="Klas">
                         <p class="help-block text-danger"></p>
                     </div>
@@ -135,8 +151,6 @@
                         <p class="help-block text-danger"></p>
                     </div>
                 </div>
-
-
                 <div class="row control-group">
                     <div class="form-group col-xs-12 floating-label-form-group controls">
                         <label>Wachtwoord</label>

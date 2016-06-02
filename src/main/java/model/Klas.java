@@ -12,14 +12,4 @@ public class Klas {
     public Klas(String kc){
         klasCode = kc;
     }
-
-    public void addDeadLine(Deadline d){
-        deadlines.add(d);
-    }
-
-    public ArrayList<Deadline> getMyDeadlines(){
-        return deadlines;
-    }
-
-
 }

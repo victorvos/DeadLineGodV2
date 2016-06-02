@@ -16,7 +16,7 @@ import java.io.IOException;
  * Created by Eigenaar on 22-5-2016.
  */
 public class DeadlineServlet extends HttpServlet{
-    private String naam, beschrijving, URI, datum;
+    private String naam, beschrijving, URI, datum, beoordeling;
     private model.DeadlineDAO d;
 
     public void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -26,6 +26,8 @@ public class DeadlineServlet extends HttpServlet{
         beschrijving = request.getParameter("beschrijving");
         URI = request.getParameter("URI");
         datum = request.getParameter("datum");
+        beoordeling = request.getParameter("beoordeling");
+        beschrijving = request.getParameter("beschrijving");
 
         HttpSession session = request.getSession();
 
@@ -38,13 +40,22 @@ public class DeadlineServlet extends HttpServlet{
             request.setAttribute("message", "<font color=red>U bent nog niet ingelogd</font>");
             rd.include(request, response);
         } else if (naam.isEmpty()||datum.isEmpty()) {
-            rd = request.getRequestDispatcher("/blogger/mydeadlines.jsp");
+            rd = request.getRequestDispatcher("/deadline/"+ userSession.getK() + "/mydeadlines.jsp");
             request.setAttribute("message", "<font color=red>Vul alle velden in aub !</font>");
             rd.include(request, response);
         } else {
-            Deadline deadLine = new Deadline(naam, beschrijving, URI, datum, userSession.getK());
+            Deadline deadLine = new Deadline(naam, datum, userSession.getK());
+            if(!URI.isEmpty()){
+                deadLine.setURI(URI);
+            }
+            if(!beschrijving.isEmpty()){
+                deadLine.setURI(beschrijving);
+            }
+            if(!beoordeling.isEmpty()){
+                deadLine.setURI(beoordeling);
+            }
             d.addDeadline(deadLine);
-            rd = request.getRequestDispatcher("/blogger/mydeadlines.jsp");
+            rd = request.getRequestDispatcher("/deadline/"+ userSession.getK() + "/mydeadlines.jsp");
             rd.forward(request, response);
         }
     }
