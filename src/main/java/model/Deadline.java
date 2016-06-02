@@ -22,6 +22,8 @@ public class Deadline {
         this.k = k;
     }
 
+    public Deadline(String naam, String beschrijving, String uri, String datum, Klas k) {
+    }
 
 
     public String getNaam() {
@@ -50,6 +52,10 @@ public class Deadline {
 
     public String getDatum() {
         return datum;
+    }
+
+    public Klas getK() {
+        return k;
     }
 
     public void setDatum(String datum) {

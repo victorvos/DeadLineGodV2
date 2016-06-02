@@ -14,7 +14,7 @@ public class DeadlineService {
 
     public void addDeadlineForKlas(String naam, String beschrijving, String URI, String datum, int beoordeling, Klas k){
         if(!naam.equals(null)||!naam.equals("") && !datum.equals(null)||!datum.equals("")){
-            Deadline dl = new Deadline(naam, beschrijving, URI, datum, beoordeling, d.getID());
+            Deadline dl = new Deadline(naam, beschrijving, URI, datum, k);
             k.addDeadLine(dl);
         }
         else{

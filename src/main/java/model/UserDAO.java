@@ -77,4 +77,8 @@ public class UserDAO extends BaseDAO {
 
         return u;
     }
+
+    public User findByEmail(String em) {
+        return selectUsers("select * from user where emailadres = "+ em + "").get(0);
+    }
 }
