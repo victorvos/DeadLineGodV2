@@ -1,5 +1,3 @@
-<%@ page import="model.ServiceProvider" %>
-<%@ page import="model.BlogPost" %>
 <%@ page import="java.util.ArrayList" %>
 <%--
   Created by IntelliJ IDEA.

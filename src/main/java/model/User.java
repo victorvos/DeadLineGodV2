@@ -13,17 +13,18 @@ public class User {
     private String password;
     private String email;
     private String naam;
+    private String achternaam;
     private String tussenvoegsel;
     private int isDocent;
     private Klas k;
 
-    public User(String password, String email, String naam, String tussenvoegsel, int isDocent, Klas k) {
+    public User(String password, String email, String naam, String achternaam, int isDocent, Klas k) {
         this.password = password;
         this.email = email;
         this.naam = naam;
-        this.tussenvoegsel = tussenvoegsel;
         this.isDocent = isDocent;
         this.k = k;
+        this.achternaam = achternaam;
     }
 
     public int isDocent() {
@@ -37,6 +38,10 @@ public class User {
 
     public String getUserID() {
         return userID;
+    }
+
+    public void setTussenvoegsel(String tussenvoegsel) {
+        this.tussenvoegsel = tussenvoegsel;
     }
 
     public String getName() {
@@ -60,14 +65,5 @@ public class User {
     public String getNaam() {
         return naam;
     }
-
-    public boolean checkPassword(String pw) {
-        boolean checkpw = false;
-        if (pw.equals(password)) {
-            checkpw = true;
-        }
-        return checkpw;
-    }
-
 }
 

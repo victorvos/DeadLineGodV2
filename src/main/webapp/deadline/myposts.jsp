@@ -6,11 +6,12 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page import="model.User" %>
-<%@ page import="model.BlogPost" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="model.ServiceProvider" %>
-<%@ page import="model.DeadlineService" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="model.Deadline" %>
+<%@ page import="model.Klas" %>
+<%@ page import="java.util.List" %>
+<%@ page import="model.DeadlineDAO" %>
+
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
          pageEncoding="ISO-8859-1"%>
@@ -108,18 +109,7 @@
             <!-- WARNING: Some web hosts do not allow emails to be sent through forms to common mail hosts like Gmail or Yahoo. It's recommended that you use a private domain email address! -->
             <!-- NOTE: To use the contact form, your site must be on a live web host with PHP! The form will not work locally! -->
             <form name="sentMessage" action="blogpost.do" method="post">
-                <%
-                    User userSession = (User) session.getAttribute("loggedUser");
-                    ArrayList<BlogPost> myPosts = userSession.getMyPosts();
 
-                    request.setAttribute("myPosts", myPosts);
-                %>
-                <c:forEach var="post" items="${myPosts}">
-                    <div class="post">
-                        <h1>${post.subject}</h1>
-                        <p>${post.text}</p>
-                    </div>
-                </c:forEach>
             </form>
         </div>
     </div>

@@ -15,7 +15,7 @@ public class DeadlineDAO extends BaseDAO {
     private ArrayList<Deadline> daedlineList = new ArrayList<Deadline>();
 
     private List<Deadline> selectDeadlines(String query) {
-        List<Deadline> results = new ArrayList<Deadline>();
+        List<Deadline> deadlineList = new ArrayList<Deadline>();
 
         try (Connection con = super.getConnection()){
 
@@ -31,12 +31,15 @@ public class DeadlineDAO extends BaseDAO {
                 String datum = String.valueOf(dbResultSet.getDate("datum"));
                 Klas k = new Klas(dbResultSet.getString("klasCode"));
 
-                Deadline deadline = new Deadline(naam, beschrijving, URI, datum, ID, beoordeling, k);
-                results.add(deadline);
+                Deadline deadline = new Deadline(naam, beschrijving, URI, datum, k);
+                deadline.setBeoordeling(beoordeling);
+                deadline.setID(ID);
+
+                deadlineList.add(deadline);
             }
 
         } catch (SQLException sqle) { sqle.printStackTrace(); }
-        return results;
+        return deadlineList;
     }
 
 
@@ -81,7 +84,7 @@ public class DeadlineDAO extends BaseDAO {
         return selectDeadlines("select * from deadline where ID = "+ ID + "").get(0);
     }
 
-    public Deadline update(Deadline d) {
+    public Deadline updateDeadline(Deadline d) {
 
         try(Connection con = super.getConnection()) {
 

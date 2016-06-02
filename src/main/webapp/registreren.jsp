@@ -95,13 +95,6 @@
                 <p>${message}</p>
                 <div class="row control-group">
                     <div class="form-group col-xs-12 floating-label-form-group controls">
-                        <label>Gebruikersnaam</label>
-                        <input type="text" placeholder="Gebruikersnaam" name="gebruikersnaam" required data-validation-required-message="Name">
-                        <p class="help-block text-danger"></p>
-                    </div>
-                </div>
-                <div class="row control-group">
-                    <div class="form-group col-xs-12 floating-label-form-group controls">
                         <label>Emailadres</label>
                         <input type="text" placeholder="Emailadres" name="emailadres" required data-validation-required-message="Emailadres">
                         <p class="help-block text-danger"></p>
@@ -110,10 +103,40 @@
                 <div class="row control-group">
                     <div class="form-group col-xs-12 floating-label-form-group controls">
                         <label>Naam</label>
-                        <input type="text" placeholder="Naam" name="naam" required data-validation-required-message="Phone number">
+                        <input type="text" placeholder="Naam" name="naam" required data-validation-required-message="Naam">
                         <p class="help-block text-danger"></p>
                     </div>
                 </div>
+                <div class="row control-group">
+                    <div class="form-group col-xs-12 floating-label-form-group controls">
+                        <label>Tussenvoegsel</label>
+                        <input type="text" placeholder="Tussenvoegsel" name="tussenvoegsel" required data-validation-required-message="isDocent">
+                        <p class="help-block text-danger"></p>
+                    </div>
+                </div>
+                <div class="row control-group">
+                    <div class="form-group col-xs-12 floating-label-form-group controls">
+                        <label>Achternaam</label>
+                        <input type="text" placeholder="Achternaam" name="achternaam" required data-validation-required-message="isDocent">
+                        <p class="help-block text-danger"></p>
+                    </div>
+                </div>
+                <div class="row control-group">
+                    <div class="form-group col-xs-12 floating-label-form-group controls">
+                        <label>Klas</label>
+                        <input type="text" placeholder="Klas" name="klas" required data-validation-required-message="Klas">
+                        <p class="help-block text-danger"></p>
+                    </div>
+                </div>
+                <div class="row control-group">
+                    <div class="form-group col-xs-12 floating-label-form-group controls">
+                        <label>Bent u een docent ?</label>
+                        <input type="text" placeholder="Docent ?" name="isDocent" required data-validation-required-message="isDocent">
+                        <p class="help-block text-danger"></p>
+                    </div>
+                </div>
+
+
                 <div class="row control-group">
                     <div class="form-group col-xs-12 floating-label-form-group controls">
                         <label>Wachtwoord</label>

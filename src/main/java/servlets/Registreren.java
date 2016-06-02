@@ -1,10 +1,7 @@
 package servlets;
 
-import model.DeadlineService;
 import model.Klas;
-import model.ServiceProvider;
 import model.User;
-import model.UserDAO;
 
 
 import javax.servlet.RequestDispatcher;
@@ -20,6 +17,7 @@ import java.io.PrintWriter;
 public class Registreren extends HttpServlet {
     private String naam, emailadres, password1, password2;
     private String tussenvoegsel;
+    private String achternaam;
     private int isDocent;
     private model.Klas klas;
     private model.UserDAO u;
@@ -32,15 +30,14 @@ public class Registreren extends HttpServlet {
         isDocent = new Integer(request.getParameter("isDocent"));
         klas = new Klas(request.getParameter("klas"));
         naam = request.getParameter("naam");
+        achternaam = request.getParameter("achternaam");
         emailadres = request.getParameter("emailadres");
         password1 = request.getParameter("pass1");
         password2 = request.getParameter("pass2");
 
-        response.setContentType("text/html");
-        PrintWriter out = response.getWriter();
+        HttpSession session = request.getSession();
 
         RequestDispatcher rd = null;
-        DeadlineService service = ServiceProvider.getDeadlineService();
 
         if(emailadres.isEmpty()||naam.isEmpty()||emailadres.isEmpty()|| password1.isEmpty()||password2.isEmpty())        {
             rd = request.getRequestDispatcher("registreren.jsp");
@@ -52,8 +49,12 @@ public class Registreren extends HttpServlet {
             request.setAttribute("message", "<font color=red>Wachtwoorden komen niet overeen !</font>");
             rd.include(request, response);
         } else {
-            User user = new User(password1, emailadres, naam, tussenvoegsel, isDocent, klas);
+            User user = new User(password1, emailadres, naam, achternaam, isDocent, klas);
+            if (!tussenvoegsel.isEmpty()){
+                user.setTussenvoegsel(tussenvoegsel);
+            }
             u.registerUser(user);
+            session.setAttribute("user", user);
             rd = request.getRequestDispatcher("index.jsp");
             rd.forward(request, response);
         }

@@ -12,17 +12,12 @@ public class Deadline {
     private int beoordeling;
     private Klas k;
 
-    public Deadline(String naam, String beschrijving, String URI, String datum, int ID, int beoordeling, Klas k) {
+    public Deadline(String naam, String beschrijving, String URI, String datum, Klas k) {
         this.naam = naam;
         this.beschrijving = beschrijving;
         this.URI = URI;
         this.datum = datum;
-        this.ID = ID;
-        this.beoordeling = beoordeling;
         this.k = k;
-    }
-
-    public Deadline(String naam, String beschrijving, String uri, String datum, Klas k) {
     }
 
 

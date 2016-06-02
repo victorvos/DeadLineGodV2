@@ -1,9 +1,11 @@
 <%@ page import="model.User" %>
-<%@ page import="model.BlogPost" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="model.ServiceProvider" %>
+<%@ page import="model.Deadline" %>
+<%@ page import="java.util.List" %>
+<%@ page import="model.DeadlineDAO" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
          pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -113,6 +115,18 @@
                         <p class="help-block text-danger"></p>
                     </div>
                 </div>
+                <%
+                    DeadlineDAO d = null;
+                    User userSession = (User) session.getAttribute("loggedUser");
+                    List<Deadline> deadlineListThisWeek = d.getDeadlinesThisWeekPerKlas(userSession.getK());
+
+                    request.setAttribute("deadLinesThisWeek", deadlineListThisWeek);
+                %>
+                <c:forEach var="post" items="${deadLinesThisWeek}">
+                    <div class="post">
+                            ${post.datum} - <b>${post.naam}</b> - ${post.beoordeling}
+                    </div>
+                </c:forEach>
                 <div class="row">
                     <div class="form-group col-xs-12">
                         <button type="submit" value="submit">submit</button>
