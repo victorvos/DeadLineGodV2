@@ -11,6 +11,9 @@ public class BaseDAO {
         Connection result = null;
         try {
             InitialContext ic = new InitialContext();
+            String Database = "deadlinegod";
+            String User = "admin2Vy5KAK";
+            String Password = "ZhGS4GsCucP4";
             DataSource ds = (DataSource) ic.lookup("java:comp/env/jdbc/MySQLDS");
 
             result = ds.getConnection();

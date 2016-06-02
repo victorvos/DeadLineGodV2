@@ -3,6 +3,8 @@ package servlets;
 import model.DeadlineService;
 import model.Klas;
 import model.ServiceProvider;
+import model.User;
+import model.UserDAO;
 
 
 import javax.servlet.RequestDispatcher;
@@ -20,6 +22,7 @@ public class Registreren extends HttpServlet {
     private String tussenvoegsel;
     private int isDocent;
     private model.Klas klas;
+    private model.UserDAO u;
 
 
     public void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -49,7 +52,8 @@ public class Registreren extends HttpServlet {
             request.setAttribute("message", "<font color=red>Wachtwoorden komen niet overeen !</font>");
             rd.include(request, response);
         } else {
-            service.registerUser(password1, emailadres, naam, tussenvoegsel, isDocent, klas);
+            User user = new User(password1, emailadres, naam, tussenvoegsel, isDocent, klas);
+            u.registerUser(user);
             rd = request.getRequestDispatcher("index.jsp");
             rd.forward(request, response);
         }

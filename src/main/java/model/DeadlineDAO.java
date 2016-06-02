@@ -40,7 +40,7 @@ public class DeadlineDAO extends BaseDAO {
     }
 
 
-    public Deadline save(Deadline d) {
+    public Deadline addDeadline(Deadline d) {
         try (Connection con = super.getConnection()) {
 
             int ID = d.getID();
