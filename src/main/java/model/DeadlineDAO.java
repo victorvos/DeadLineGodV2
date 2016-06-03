@@ -55,7 +55,7 @@ public class DeadlineDAO extends BaseDAO {
             String datum = d.getDatum();
 
             Statement statement = con.createStatement();
-            statement.executeQuery("INSERT INTO deadline (ID,naam,beschrijving,URI,beoordeling, datum) VALUES" +
+            statement.executeQuery("INSERT INTO deadline (ID,naam,beschrijving,URI,beoordeling,datum) VALUES" +
                     "(" + ID + "," + naam + "," + beschrijving + "," + URI + "," + beoordeling + "," + datum + ")");
 
         } catch (SQLException sqle) {

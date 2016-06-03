@@ -8,12 +8,12 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 
 /**
  * Created by Victor on 26-4-2016.
  */
+
 public class Registreren extends HttpServlet {
     private String naam, emailadres, password1, password2;
     private String tussenvoegsel;

@@ -2,6 +2,7 @@ package model;
 /**
  * Created by Victor on 19-5-2016.
  */
+
 import java.sql.Connection;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
