@@ -27,7 +27,6 @@ public class Registreren extends HttpServlet {
         u = new UserDAO();
     }
 
-
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 

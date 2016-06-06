@@ -24,7 +24,7 @@ public class DeadlineDAO extends BaseDAO {
                 String beschrijving = dbResultSet.getString("beschrijving");
                 String URI = dbResultSet.getString("URI");
                 int beoordeling = dbResultSet.getInt("beoordeling");
-                Date datum = (dbResultSet.getDate("datum");
+                Date datum = dbResultSet.getDate("datum");
                 Klas k = new Klas(dbResultSet.getString("klasCode"));
 
                 Deadline deadline = new Deadline(naam, datum, k);
@@ -62,7 +62,7 @@ public class DeadlineDAO extends BaseDAO {
             PreparedStatement pstmt = con.prepareStatement("INSERT INTO deadline (naam,beschrijving,URI,beoordeling,datum,klas) VALUES(?,?,?,?,?,?,?)");
             pstmt.setString(1, naam);
             pstmt.setString(2, beschrijving);
-            pstmt.setString(3, URI)
+            pstmt.setString(3, URI);
             pstmt.setString(4, naam);
             pstmt.setInt(5, beoordeling);
             pstmt.setDate(6, datum);
