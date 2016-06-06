@@ -12,4 +12,8 @@ public class Klas {
     public Klas(String kc){
         klasCode = kc;
     }
+
+    public String getKlasCode() {
+        return klasCode;
+    }
 }

@@ -11,12 +11,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.sql.Date;
 
 /**
  * Created by Eigenaar on 22-5-2016.
  */
 public class DeadlineServlet extends HttpServlet{
-    private String naam, beschrijving, URI, datum, beoordeling;
+    private String naam, beschrijving, URI, beoordeling;
+    private Date datum;
     private model.DeadlineDAO d;
 
     public void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -25,7 +27,7 @@ public class DeadlineServlet extends HttpServlet{
         naam = request.getParameter("naam");
         beschrijving = request.getParameter("beschrijving");
         URI = request.getParameter("URI");
-        datum = request.getParameter("datum");
+        datum = request.getParameter("datum
         beoordeling = request.getParameter("beoordeling");
         beschrijving = request.getParameter("beschrijving");
 
@@ -39,7 +41,7 @@ public class DeadlineServlet extends HttpServlet{
             rd = request.getRequestDispatcher("index.jsp");
             request.setAttribute("message", "<font color=red>U bent nog niet ingelogd</font>");
             rd.include(request, response);
-        } else if (naam.isEmpty()||datum.isEmpty()) {
+        } else if (naam.isEmpty()||datum.equals(null)) {
             rd = request.getRequestDispatcher("/deadline/"+ userSession.getK() + "/mydeadlines.jsp");
             request.setAttribute("message", "<font color=red>Vul alle velden in aub !</font>");
             rd.include(request, response);

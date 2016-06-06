@@ -1,9 +1,6 @@
 package model;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +24,7 @@ public class DeadlineDAO extends BaseDAO {
                 String beschrijving = dbResultSet.getString("beschrijving");
                 String URI = dbResultSet.getString("URI");
                 int beoordeling = dbResultSet.getInt("beoordeling");
-                String datum = String.valueOf(dbResultSet.getDate("datum"));
+                Date datum = (dbResultSet.getDate("datum");
                 Klas k = new Klas(dbResultSet.getString("klasCode"));
 
                 Deadline deadline = new Deadline(naam, datum, k);
@@ -46,18 +43,32 @@ public class DeadlineDAO extends BaseDAO {
 
     public Deadline addDeadline(Deadline d) {
         try (Connection con = super.getConnection()) {
+            String URI = "", beschrijving = "";
+            int beoordeling = 0;
 
-            int ID = d.getID();
             String naam = d.getNaam();
-            String beschrijving = d.getBeschrijving();
-            String URI = d.getURI();
-            int beoordeling = d.getBeoordeling();
-            String datum = d.getDatum();
+            if(!d.getURI().equals(null)){
+                URI = d.getURI();
+            }
+            if(!d.getBeschrijving().equals(null)){
+                beschrijving = d.getBeschrijving();
+            }
+            if(d.getBeoordeling()!=0){
+                beoordeling = d.getBeoordeling();
+            }
+            String k = d.getK().getKlasCode();
+            Date datum = d.getDatum();
 
-            Statement statement = con.createStatement();
-            statement.executeQuery("INSERT INTO deadline (ID,naam,beschrijving,URI,beoordeling,datum) VALUES" +
-                    "(" + ID + "," + naam + "," + beschrijving + "," + URI + "," + beoordeling + "," + datum + ")");
+            PreparedStatement pstmt = con.prepareStatement("INSERT INTO deadline (naam,beschrijving,URI,beoordeling,datum,klas) VALUES(?,?,?,?,?,?,?)");
+            pstmt.setString(1, naam);
+            pstmt.setString(2, beschrijving);
+            pstmt.setString(3, URI)
+            pstmt.setString(4, naam);
+            pstmt.setInt(5, beoordeling);
+            pstmt.setDate(6, datum);
+            pstmt.setString(7, k);
 
+            pstmt.executeUpdate();
         } catch (SQLException sqle) {
             sqle.printStackTrace();
         }
@@ -69,16 +80,33 @@ public class DeadlineDAO extends BaseDAO {
 
         try(Connection con = super.getConnection()) {
 
-            int ID = d.getID();
+            String URI = "", beschrijving = "";
+            int beoordeling = 0;
+
             String naam = d.getNaam();
-            String beschrijving = d.getBeschrijving();
-            String URI = d.getURI();
-            int beoordeling = d.getBeoordeling();
-            String datum = d.getDatum();
+            if(!d.getURI().equals(null)){
+                URI = d.getURI();
+            }
+            if(!d.getBeschrijving().equals(null)){
+                beschrijving = d.getBeschrijving();
+            }
+            if(d.getBeoordeling()!=0){
+                beoordeling = d.getBeoordeling();
+            }
+            String k = d.getK().getKlasCode();
+            Date datum = d.getDatum();
+            int ID = d.getID();
 
-            Statement statement = con.createStatement();
-            statement.executeQuery("UPDATE country SET naam="+naam+", beschrijving"+beschrijving+", URI="+URI+", beoordeling="+beoordeling+", datum="+datum+" WHERE ID="+ID+")");
+            PreparedStatement pstmt = con.prepareStatement("UPDATE deadline SET naam= ?, beschrijving = ?, URI= ?, beoordeling = ?, datum = ? WHERE ID = ?)");
 
+            pstmt.setString(1, naam);
+            pstmt.setString(2, beschrijving);
+            pstmt.setString(3, URI);
+            pstmt.setInt(4, beoordeling);
+            pstmt.setDate(5, datum);
+            pstmt.setInt(6, ID);
+
+            pstmt.executeUpdate();
         }catch (SQLException sqle) { sqle.printStackTrace(); }
 
         return d;
@@ -88,10 +116,13 @@ public class DeadlineDAO extends BaseDAO {
     public boolean delete(Deadline d) {
 
         try (Connection con = super.getConnection()) {
+            int ID = d.getID();
 
-            Statement stmt = con.createStatement();
-            if (stmt.executeQuery("DELETE FROM country WHERE ID=" + d.getID()) != null) {
-                return true;
+            PreparedStatement pstmt = con.prepareStatement("DELETE FROM deadline WHERE ID= ?");
+
+            pstmt.setInt(1, ID);
+            if (pstmt.execute()) {
+                pstmt.executeUpdate();
             }
 
         } catch (SQLException sqle) {
@@ -116,7 +147,7 @@ public class DeadlineDAO extends BaseDAO {
         return selectDeadlines("select * from deadline where datum BETWEEN TRUNC(sysdate, 'MONTH') and TRUNC(sysdate+30, 'MONTH')-1  from dual and KlasCode = "+k+")");
     }
 
-    public Deadline findByID(String ID) {
-        return selectDeadlines("select * from deadline where ID = "+ ID + "").get(0);
-    }
+//    public Deadline findByID(String ID) {
+//        return selectDeadlines("select * from deadline where ID = "+ ID + "").get(0);
+//    }
 }

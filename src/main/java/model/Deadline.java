@@ -1,5 +1,8 @@
 package model;
 
+
+import java.sql.Date;
+
 /**
  * Created by Eigenaar on 31-5-2016.
  */
@@ -7,12 +10,12 @@ public class Deadline {
     private String naam;
     private String beschrijving;
     private String URI;
-    private String datum;
+    private Date datum;
     private int ID;
-    private int beoordeling;
+    private int beoordeling=0;
     private Klas k;
 
-    public Deadline(String naam, String datum, Klas k) {
+    public Deadline(String naam, Date datum, Klas k) {
         this.naam = naam;
         this.datum = datum;
         this.k = k;
@@ -43,7 +46,7 @@ public class Deadline {
         this.URI = URI;
     }
 
-    public String getDatum() {
+    public Date getDatum() {
         return datum;
     }
 
@@ -51,7 +54,7 @@ public class Deadline {
         return k;
     }
 
-    public void setDatum(String datum) {
+    public void setDatum(Date datum) {
         this.datum = datum;
     }
 

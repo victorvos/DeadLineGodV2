@@ -1,9 +1,6 @@
 package model;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,13 +51,18 @@ public class UserDAO extends BaseDAO {
             String naam = u.getNaam();
             int isDocent = u.getIsDocent();
             String tussenvoegsel = u.getTussenvoegsel();
-            Klas k = u.getK();
+            String k = u.getK().getKlasCode();
 
-            Statement statement = con.createStatement();
             if (findByEmail(email)) {
-                statement.executeQuery("INSERT INTO user (password,email,naam,tussenvoegsel,isDocent, klasCode)" +
-                        "VALUES(" + password + "," + email + "," + naam + "," + tussenvoegsel + "," + isDocent + "," + k + ")");
+                PreparedStatement pstmt = con.prepareStatement("INSERT INTO user (password,email,naam,tussenvoegsel,isDocent, klasCode) VALUES(?,?,?,?,?,?)");
+                pstmt.setString(1, password);
+                pstmt.setString(2, email);
+                pstmt.setString(3, naam);
+                pstmt.setString(4, tussenvoegsel);
+                pstmt.setInt(5, isDocent);
+                pstmt.setString(6, k);
 
+                pstmt.executeUpdate();
                 ru = true;
             }
             else{
@@ -105,8 +107,16 @@ public class UserDAO extends BaseDAO {
             String tussenvoegsel = u.getTussenvoegsel();
             Klas k = u.getK();
 
-            Statement statement = con.createStatement();
-            statement.executeQuery("UPDATE country SET email="+email+", password"+password+", naam="+naam+", isDocent"+isDocent+", tussenvoegsel="+tussenvoegsel+" WHERE ID="+ID+")");
+            PreparedStatement pstmt = con.prepareStatement("UPDATE user SET email= ?, password = ?, naam = ?, isDocent = ?, tussenvoegsel= ? WHERE ID= ?");
+
+            pstmt.setString(1, email);
+            pstmt.setString(2, password);
+            pstmt.setString(3, naam);
+            pstmt.setInt(4, isDocent);
+            pstmt.setString(5, tussenvoegsel);
+            pstmt.setString(6, ID);
+
+            pstmt.executeUpdate();
 
         }catch (SQLException sqle) { sqle.printStackTrace(); }
 
