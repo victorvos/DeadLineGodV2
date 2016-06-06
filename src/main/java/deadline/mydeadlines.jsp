@@ -105,14 +105,12 @@
                     <div class="form-group col-xs-12 floating-label-form-group controls">
                         <label>Onderwerp</label>
                         <input type="text" placeholder="Onderwerp" name="subject" required data-validation-required-message="Onderwerp">
-                        <p class="help-block text-danger"></p>
                     </div>
                 </div>
                 <div class="row control-group">
                     <div class="form-group col-xs-12 floating-label-form-group controls">
                         <label>Text</label>
                         <textarea rows="10" cols="60" placeholder="Text" name="text" required data-validation-required-message="Text"></textarea>
-                        <p class="help-block text-danger"></p>
                     </div>
                 </div>
                 <%

@@ -1,6 +1,7 @@
 package servlets;
 
 import model.Klas;
+import model.KlasDAO;
 import model.User;
 import model.UserDAO;
 
@@ -22,9 +23,11 @@ public class Registreren extends HttpServlet {
     private int isDocent;
     private model.Klas klas;
     private model.UserDAO u;
+    private model.KlasDAO k;
 
     public void init() throws ServletException{
         u = new UserDAO();
+        k = new KlasDAO();
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -59,6 +62,7 @@ public class Registreren extends HttpServlet {
                 user.setTussenvoegsel(tussenvoegsel);
             }
             u.registerUser(user);
+            session.setAttribute("klassen", k.findAll());
             session.setAttribute("user", user);
             rd = request.getRequestDispatcher("index.jsp");
             rd.forward(request, response);

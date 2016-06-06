@@ -89,7 +89,7 @@
 <!-- Main Content -->
 <div class="container">
     <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <%--<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">--%>
             <!-- Contact Form - Enter your email address on line 19 of the mail/contact_me.php file to make this form work. -->
             <!-- WARNING: Some web hosts do not allow emails to be sent through forms to common mail hosts like Gmail or Yahoo. It's recommended that you use a private domain email address! -->
             <!-- NOTE: To use the contact form, your site must be on a live web host with PHP! The form will not work locally! -->
@@ -99,70 +99,60 @@
                     <div class="form-group col-xs-12 floating-label-form-group controls">
                         <label>Emailadres</label>
                         <input type="text" placeholder="Emailadres" name="emailadres" required data-validation-required-message="Emailadres">
-                        <p class="help-block text-danger"></p>
                     </div>
                 </div>
                 <div class="row control-group">
                     <div class="form-group col-xs-12 floating-label-form-group controls">
                         <label>Naam</label>
                         <input type="text" placeholder="Naam" name="naam" required data-validation-required-message="Naam">
-                        <p class="help-block text-danger"></p>
                     </div>
                 </div>
                 <div class="row control-group">
                     <div class="form-group col-xs-12 floating-label-form-group controls">
                         <label>Tussenvoegsel</label>
                         <input type="text" placeholder="Tussenvoegsel" name="tussenvoegsel" required data-validation-required-message="isDocent">
-                        <p class="help-block text-danger"></p>
                     </div>
                 </div>
                 <div class="row control-group">
                     <div class="form-group col-xs-12 floating-label-form-group controls">
                         <label>Achternaam</label>
                         <input type="text" placeholder="Achternaam" name="achternaam" required data-validation-required-message="isDocent">
-                        <p class="help-block text-danger"></p>
                     </div>
                 </div>
                 <div class="row control-group">
-                    <div class="form-group col-xs-12 floating-label-form-group controls">
+                    <%--<div class="form-group col-xs-12 floating-label-form-group controls">--%>
                         <label>Klas</label>
                         <tr>
                             <%
-                                KlasDAO d = null;
                                 Klas klassen = (Klas) session.getAttribute("klassen");
-
                                 request.setAttribute("klassen", klassen);
                             %>
-                            <td><form:select path="klas">
+                            <td>
+                                <form:select path="klas">
                                 <form:option value="NONE" label="--- Select ---" />
-                                <form:options items="${klassen}" />
-                            </form:select>
+                                <form:options items="${klassen.klasCode}" />
+                                </form:select>
                             </td>
-                            <td><form:errors path="country" cssClass="error" /></td>
+                            <%--<td><form:errors path="" cssClass="error" /></td>--%>
                         </tr>
-                        <input type="text" placeholder="Klas" name="klas" required data-validation-required-message="Klas">
-                        <p class="help-block text-danger"></p>
                     </div>
                 </div>
                 <div class="row control-group">
                     <div class="form-group col-xs-12 floating-label-form-group controls">
                         <label>Bent u een docent ?</label>
                         <input type="text" placeholder="Docent ?" name="isDocent" required data-validation-required-message="isDocent">
-                        <p class="help-block text-danger"></p>
                     </div>
                 </div>
                 <div class="row control-group">
                     <div class="form-group col-xs-12 floating-label-form-group controls">
                         <label>Wachtwoord</label>
                         <input type="password" placeholder="Wachtwoord" name="pass1" required data-validation-required-message="Wachtwoord">
-                        <p class="help-block text-danger"></p>
                     </div>
                 </div>
                 <div class="row control-group">
                     <div class="form-group col-xs-12 floating-label-form-group controls">
                         <label>Wachtwoord nogmaals</label>
                         <input type="password" placeholder="Wachtwoord nogmaals" name="pass2" required data-validation-required-message="Wachtwoord nogmaals">
-                        <p class="help-block text-danger"></p>
                     </div>
                 </div>
                 <br>

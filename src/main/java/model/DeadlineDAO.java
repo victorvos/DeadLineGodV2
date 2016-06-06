@@ -144,7 +144,7 @@ public class DeadlineDAO extends BaseDAO {
     }
 
     public List<Deadline> getDeadlinesThisMonthPerKlas(Klas k) {
-        return selectDeadlines("select * from deadline where datum BETWEEN TRUNC(sysdate, 'MONTH') and TRUNC(sysdate+30, 'MONTH')-1  from dual and KlasCode = "+k+")");
+        return selectDeadlines("select * from deadline where datum BETWEEN TRUNC(sysdate, 'MONTH') and TRUNC(sysdate+30, 'MONTH')-1  from dual and KlasCode = "+k+" ORDER BY datum ASC)");
     }
 
 //    public Deadline findByID(String ID) {

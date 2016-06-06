@@ -98,12 +98,10 @@
                 <div class="form-group col-xs-12 floating-label-form-group controls">
                     <label>Gebruikersnaam</label>
                     <input type="text" placeholder="Gebruikersnaam" name="gebruikersnaam" required data-validation-required-message="Username">
-                    <p class="help-block text-danger"></p>
                 </div>
                 <div class="form-group col-xs-12 floating-label-form-group controls">
                     <label>Wachtwoord</label>
                     <input type="password" placeholder="Wachtwoord" name="password" required data-validation-required-message="Wachtwoord">
-                    <p class="help-block text-danger"></p>
                 </div>
                 <div id="success"></div>
                 <div class="row">
