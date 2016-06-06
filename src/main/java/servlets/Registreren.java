@@ -2,6 +2,7 @@ package servlets;
 
 import model.Klas;
 import model.User;
+import model.UserDAO;
 
 
 import javax.servlet.RequestDispatcher;
@@ -22,6 +23,10 @@ public class Registreren extends HttpServlet {
     private model.Klas klas;
     private model.UserDAO u;
 
+    public void init() throws ServletException{
+        u = new UserDAO();
+    }
+
 
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -34,6 +39,7 @@ public class Registreren extends HttpServlet {
         emailadres = request.getParameter("emailadres");
         password1 = request.getParameter("pass1");
         password2 = request.getParameter("pass2");
+
 
         HttpSession session = request.getSession();
 

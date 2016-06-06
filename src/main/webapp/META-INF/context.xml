@@ -6,6 +6,6 @@
               auth="Container"
               type="javax.sql.DataSource"
               username="root"
-              password="N!Mbus67" />
+              password=""/>
 </Context>
 

@@ -1,6 +1,8 @@
 package servlets;
 
+import model.KlasDAO;
 import model.User;
+import model.UserDAO;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -19,6 +21,11 @@ public class LoginServlet extends HttpServlet {
     private String gebruikersnaam, password;
     private model.UserDAO u;
     private model.KlasDAO k;
+
+    public void init() throws ServletException{
+        u = new UserDAO();
+        k = new KlasDAO();
+    }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

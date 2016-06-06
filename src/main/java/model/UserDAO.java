@@ -35,6 +35,16 @@ public class UserDAO extends BaseDAO {
         return userList;
     }
 
+    public boolean findByEmail(String em) {
+        User user = selectUsers("select emailadres from user where emailadres = "+ em + "").get(0);
+        if (user != null){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
     public boolean registerUser(User u) {
         boolean ru = false;
         try (Connection con = super.getConnection()) {
@@ -47,9 +57,10 @@ public class UserDAO extends BaseDAO {
             Klas k = u.getK();
 
             Statement statement = con.createStatement();
-            if (findByEmail(email).equals(null)){
-                statement.executeQuery("INSERT INTO user (password,email,naam,tussenvoegsel,isDocent, klasCode) VALUES" +
-                        "(" + password + "," + email + "," + naam + "," + tussenvoegsel + "," + isDocent + "," + k + ")");
+            if (findByEmail(email)) {
+                statement.executeQuery("INSERT INTO user (password,email,naam,tussenvoegsel,isDocent, klasCode)" +
+                        "VALUES(" + password + "," + email + "," + naam + "," + tussenvoegsel + "," + isDocent + "," + k + ")");
+
                 ru = true;
             }
             else{
@@ -64,28 +75,21 @@ public class UserDAO extends BaseDAO {
 
     public boolean login(User u){
         boolean login = false;
-        try (Connection con = super.getConnection()) {
 
-            String email = u.getEmail();
-            String password = u.getPassword();
-            String naam = u.getNaam();
-            int isDocent = u.getIsDocent();
-            String tussenvoegsel = u.getTussenvoegsel();
-            Klas k = u.getK();
+        String email = u.getEmail();
+//            String password = u.getPassword();
+//            String naam = u.getNaam();
+//            int isDocent = u.getIsDocent();
+//            String tussenvoegsel = u.getTussenvoegsel();
+//            Klas k = u.getK();
 
-            User user = findByEmail(email);
-            if (user.getPassword().equals(u.getPassword())) {
-                login = true;
-                Statement statement = con.createStatement();
-                statement.executeQuery("select password, email from user where emailadres = " + email + "");
-            } else {
-                login = false;
-            }
+        User user = selectUsers("select * from user where emailadres = " + email + "").get(0);
+
+        if (user.getPassword().equals(u.getPassword())) {
+            login = true;
+        } else {
+            login = false;
         }
-        catch (SQLException sqle) {
-            sqle.printStackTrace();
-        }
-
         return login;
     }
 
@@ -107,10 +111,6 @@ public class UserDAO extends BaseDAO {
         }catch (SQLException sqle) { sqle.printStackTrace(); }
 
         return u;
-    }
-
-    public User findByEmail(String em) {
-        return selectUsers("select * from user where emailadres = "+ em + "").get(0);
     }
 
 
