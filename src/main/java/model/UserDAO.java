@@ -32,6 +32,7 @@ public class UserDAO extends BaseDAO {
         return userList;
     }
 
+
     public boolean findByEmail(String em) {
         User user = selectUsers("select emailadres from user where emailadres = "+ em + "").get(0);
         if (user != null){
@@ -41,6 +42,7 @@ public class UserDAO extends BaseDAO {
             return false;
         }
     }
+
 
     public boolean registerUser(User u) {
         boolean ru = false;
@@ -71,7 +73,6 @@ public class UserDAO extends BaseDAO {
         } catch (SQLException sqle) {
             sqle.printStackTrace();
         }
-
         return ru;
     }
 
@@ -105,9 +106,8 @@ public class UserDAO extends BaseDAO {
             String naam = u.getNaam();
             int isDocent = u.getIsDocent();
             String tussenvoegsel = u.getTussenvoegsel();
-            Klas k = u.getK();
 
-            PreparedStatement pstmt = con.prepareStatement("UPDATE user SET email= ?, password = ?, naam = ?, isDocent = ?, tussenvoegsel= ? WHERE ID= ?");
+            PreparedStatement pstmt = con.prepareStatement("UPDATE user SET email= ?, password = ?, naam = ?, isDocent = ?, tussenvoegsel= ? WHERE ID = ?");
 
             pstmt.setString(1, email);
             pstmt.setString(2, password);
@@ -122,6 +122,4 @@ public class UserDAO extends BaseDAO {
 
         return u;
     }
-
-
 }

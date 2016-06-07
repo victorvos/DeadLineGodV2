@@ -58,10 +58,10 @@
                     <a href="/index.jsp">Logout</a>
                 </li>
                 <li>
-                    <a href="/blogger/myaccount.jsp">Post Maken</a>
+                    <a href="/deadline/myaccount.jsp">Post Maken</a>
                 </li>
                 <li>
-                    <a href="/blogger/myposts.jsp">Mijn Posts</a>
+                    <a href="/deadline/mydeadlines.jsp.jsp">Mijn Posts</a>
                 </li>
             </ul>
         </div>
