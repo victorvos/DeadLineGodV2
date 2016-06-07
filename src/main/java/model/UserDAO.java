@@ -8,6 +8,7 @@ import java.util.List;
  * Created by Eigenaar on 1-6-2016.
  */
 public class UserDAO extends BaseDAO {
+
     private List<User> selectUsers(String query) {
         List<User> userList = new ArrayList<User>();
 
@@ -21,10 +22,14 @@ public class UserDAO extends BaseDAO {
                 String password = dbResultSet.getString("password");
                 String naam = dbResultSet.getString("naam");
                 int isDocent = dbResultSet.getInt("isDocent");
+                String achternaam = dbResultSet.getString("achternaam");
                 String tussenvoegsel = dbResultSet.getString("tussenvoegsel");
                 Klas k = new Klas(dbResultSet.getString("klasCode"));
 
-                User u = new User(password, email, naam, tussenvoegsel, isDocent, k);
+                User u = new User(password, email, naam, achternaam, isDocent, k);
+                if(!tussenvoegsel.equals(null)){
+                    u.setTussenvoegsel(tussenvoegsel);
+                }
                 userList.add(u);
             }
 
@@ -34,7 +39,7 @@ public class UserDAO extends BaseDAO {
 
 
     public boolean findByEmail(String em) {
-        int numberOfUsersWithEmail = selectUsers("select emailadres from user where emailadres = "+ em + "").size();
+        int numberOfUsersWithEmail = selectUsers("select * from user where email = "+em+"").size();
         return numberOfUsersWithEmail != 0;
     }
 
@@ -82,16 +87,34 @@ public class UserDAO extends BaseDAO {
 //            int isDocent = u.getIsDocent();
 //            String tussenvoegsel = u.getTussenvoegsel();
 //            Klas k = u.getK();
+        if(!findByEmail(email)){
+            User user = selectUsers("select * from user where email = " + email).get(0);
+            String password = user.getPassword();
 
-       User user = selectUsers("select * from user where emailadres = " + email + "").get(0);
-        String password = user.getPassword();
-
-        if (password.equals(u.getPassword())) {
-            login = true;
-        } else {
-            login = false;
+            if (password.equals(u.getPassword())) {
+                login = true;
+            } else {
+                login = false;
+            }
         }
         return login;
+    }
+
+    public User getUser(String em){
+        String email = em;
+
+//            String password = u.getPassword();
+//            String naam = u.getNaam();
+//            int isDocent = u.getIsDocent();
+//            String tussenvoegsel = u.getTussenvoegsel();
+//            Klas k = u.getK();
+        if(!findByEmail(email)){
+            User user = selectUsers("select * from user where email = " + email + "").get(0);
+            return user;
+        }
+        else{
+            return null;
+        }
     }
 
     public User updateUser(User u) {

@@ -96,8 +96,8 @@
             <form name="sentMessage" action="index.do" method="post">
                 <p>${message}</p>
                 <div class="form-group col-xs-12 floating-label-form-group controls">
-                    <label>Gebruikersnaam</label>
-                    <input type="text" placeholder="Gebruikersnaam" name="gebruikersnaam" required data-validation-required-message="Username">
+                    <label>Emailadres</label>
+                    <input type="text" placeholder="Emailadres" name="emailadres" required data-validation-required-message="Emailadres">
                 </div>
                 <div class="form-group col-xs-12 floating-label-form-group controls">
                     <label>Wachtwoord</label>

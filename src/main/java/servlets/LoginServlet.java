@@ -18,26 +18,27 @@ import java.io.IOException;
  * Created by Eigenaar on 13-5-2016.
  */
 public class LoginServlet extends HttpServlet {
-    private String gebruikersnaam, password;
-    private model.UserDAO u;
-    private model.KlasDAO k;
+    private String emailadres, password;
+    private model.UserDAO userDAO;
+    private model.KlasDAO klasDAO;
 
     public void init() throws ServletException{
-        u = new UserDAO();
-        k = new KlasDAO();
+        userDAO = new UserDAO();
+        klasDAO = new KlasDAO();
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        gebruikersnaam = request.getParameter("gebruikersnaam");
+        emailadres = request.getParameter("emailadres");
         password = request.getParameter("password");
 
         HttpSession session = request.getSession();
         RequestDispatcher rd = null;
-        User user = (User) session.getAttribute("user");
 
-        if (gebruikersnaam.isEmpty()||password.isEmpty()) {
+        User user = userDAO.getUser(emailadres);
+
+        if (emailadres.isEmpty()||password.isEmpty()) {
             rd = request.getRequestDispatcher("/index.jsp");
             request.setAttribute("message", "<font color=red>Vul alle velden in aub !</font>");
             rd.include(request, response);
@@ -45,9 +46,9 @@ public class LoginServlet extends HttpServlet {
             rd = request.getRequestDispatcher("/index.jsp");
             request.setAttribute("message", "<font color=red>Gebruikersnaam en Wachtwoord combinatie is niet bekend</font>");
             rd.include(request, response);
-        } else if (u.login(user)){
+        } else if (userDAO.login(user)){
             session.setAttribute("loggedUser", user);
-            session.setAttribute("klassen", k.findAll());
+            session.setAttribute("klassen", klasDAO.findAll());
             rd = request.getRequestDispatcher("/deadline/"+ user.getK() + "/mydeadlines.jsp");
             rd.forward(request, response);
         }
