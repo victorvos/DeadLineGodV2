@@ -20,30 +20,33 @@ public class Registreren extends HttpServlet {
     private String naam, emailadres, password1, password2;
     private String tussenvoegsel;
     private String achternaam;
+    private String klasCode;
     private int isDocent;
     private model.Klas klas;
-    private model.UserDAO u;
-    private model.KlasDAO k;
+    private model.UserDAO userDAO;
+    private model.KlasDAO klassenDAO;
 
     public void init() throws ServletException{
-        u = new UserDAO();
-        k = new KlasDAO();
+        userDAO = new UserDAO();
+        klassenDAO = new KlasDAO();
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
+
+
+        session.setAttribute("klassen", klassenDAO.findAll());
 
         tussenvoegsel = request.getParameter("tussenvoegsel");
         isDocent = new Integer(request.getParameter("isDocent"));
-        klas = new Klas(request.getParameter("klas"));
+        klasCode = request.getParameter("klasCode");
+        klas = new Klas(klasCode);
         naam = request.getParameter("naam");
         achternaam = request.getParameter("achternaam");
         emailadres = request.getParameter("emailadres");
         password1 = request.getParameter("pass1");
         password2 = request.getParameter("pass2");
-
-
-        HttpSession session = request.getSession();
 
         RequestDispatcher rd = null;
 
@@ -61,8 +64,7 @@ public class Registreren extends HttpServlet {
             if (!tussenvoegsel.isEmpty()){
                 user.setTussenvoegsel(tussenvoegsel);
             }
-            u.registerUser(user);
-            session.setAttribute("klassen", k.findAll());
+            userDAO.registerUser(user);
             session.setAttribute("user", user);
             rd = request.getRequestDispatcher("index.jsp");
             rd.forward(request, response);

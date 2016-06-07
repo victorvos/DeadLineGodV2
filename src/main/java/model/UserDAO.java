@@ -34,13 +34,8 @@ public class UserDAO extends BaseDAO {
 
 
     public boolean findByEmail(String em) {
-        User user = selectUsers("select emailadres from user where emailadres = "+ em + "").get(0);
-        if (user != null){
-            return true;
-        }
-        else{
-            return false;
-        }
+        int numberOfUsersWithEmail = selectUsers("select emailadres from user where emailadres = "+ em + "").size();
+        return numberOfUsersWithEmail != 0;
     }
 
 
@@ -54,15 +49,17 @@ public class UserDAO extends BaseDAO {
             int isDocent = u.getIsDocent();
             String tussenvoegsel = u.getTussenvoegsel();
             String k = u.getK().getKlasCode();
+            String achternaam = u.getAchternaam();
 
-            if (findByEmail(email)) {
-                PreparedStatement pstmt = con.prepareStatement("INSERT INTO user (password,email,naam,tussenvoegsel,isDocent, klasCode) VALUES(?,?,?,?,?,?)");
+            if (!findByEmail(email)) {
+                PreparedStatement pstmt = con.prepareStatement("INSERT INTO user (password,email,naam,achternaam,tussenvoegsel,isDocent, klasCode) VALUES(?,?,?,?,?,?,?)");
                 pstmt.setString(1, password);
                 pstmt.setString(2, email);
                 pstmt.setString(3, naam);
-                pstmt.setString(4, tussenvoegsel);
-                pstmt.setInt(5, isDocent);
-                pstmt.setString(6, k);
+                pstmt.setString(4, achternaam);
+                pstmt.setString(5, tussenvoegsel);
+                pstmt.setInt(6, isDocent);
+                pstmt.setString(7, k);
 
                 pstmt.executeUpdate();
                 ru = true;
@@ -86,9 +83,10 @@ public class UserDAO extends BaseDAO {
 //            String tussenvoegsel = u.getTussenvoegsel();
 //            Klas k = u.getK();
 
-        User user = selectUsers("select * from user where emailadres = " + email + "").get(0);
+       User user = selectUsers("select * from user where emailadres = " + email + "").get(0);
+        String password = user.getPassword();
 
-        if (user.getPassword().equals(u.getPassword())) {
+        if (password.equals(u.getPassword())) {
             login = true;
         } else {
             login = false;

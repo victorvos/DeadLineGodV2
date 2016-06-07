@@ -7,7 +7,10 @@ import java.util.ArrayList;
  */
 public class Klas {
     private String klasCode;
-    ArrayList<Deadline> deadlines = new ArrayList<Deadline>();
+
+    public void setKlasCode(String klasCode) {
+        this.klasCode = klasCode;
+    }
 
     public Klas(String kc){
         klasCode = kc;

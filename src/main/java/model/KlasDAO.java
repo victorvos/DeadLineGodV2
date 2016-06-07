@@ -29,6 +29,6 @@ public class KlasDAO extends BaseDAO{
     }
 
     public List<Klas> findAll(){
-        return selectKlassen("select * from klas");
+        return selectKlassen("select klasCode from klas");
     }
 }

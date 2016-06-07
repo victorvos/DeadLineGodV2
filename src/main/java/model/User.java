@@ -65,5 +65,9 @@ public class User {
     public String getNaam() {
         return naam;
     }
+
+    public String getAchternaam() {
+        return achternaam;
+    }
 }
 

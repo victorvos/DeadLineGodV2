@@ -26,10 +26,6 @@ public class Deadline {
         return naam;
     }
 
-    public void setNaam(String naam) {
-        this.naam = naam;
-    }
-
     public String getBeschrijving() {
         return beschrijving;
     }
@@ -52,10 +48,6 @@ public class Deadline {
 
     public Klas getK() {
         return k;
-    }
-
-    public void setDatum(Date datum) {
-        this.datum = datum;
     }
 
     public int getID() {

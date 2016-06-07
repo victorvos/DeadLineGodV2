@@ -9,6 +9,7 @@
 --%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
          pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -98,61 +99,65 @@
                 <div class="row control-group">
                     <div class="form-group col-xs-12 floating-label-form-group controls">
                         <label>Emailadres</label>
-                        <input type="text" placeholder="Emailadres" name="emailadres" required data-validation-required-message="Emailadres">
+                        <input type="text" placeholder="Emailadres" name="emailadres" required data-validation-required-message="Emailadres" value = "">
                     </div>
                 </div>
                 <div class="row control-group">
                     <div class="form-group col-xs-12 floating-label-form-group controls">
                         <label>Naam</label>
-                        <input type="text" placeholder="Naam" name="naam" required data-validation-required-message="Naam">
+                        <input type="text" placeholder="Naam" name="naam" required data-validation-required-message="Naam" value = "">
                     </div>
                 </div>
                 <div class="row control-group">
                     <div class="form-group col-xs-12 floating-label-form-group controls">
                         <label>Tussenvoegsel</label>
-                        <input type="text" placeholder="Tussenvoegsel" name="tussenvoegsel" required data-validation-required-message="isDocent">
+                        <input type="text" placeholder="Tussenvoegsel" name="tussenvoegsel" value = "">
                     </div>
                 </div>
                 <div class="row control-group">
                     <div class="form-group col-xs-12 floating-label-form-group controls">
                         <label>Achternaam</label>
-                        <input type="text" placeholder="Achternaam" name="achternaam" required data-validation-required-message="isDocent">
+                        <input type="text" placeholder="Achternaam" name="achternaam" required data-validation-required-message="achternaam" value = "">
                     </div>
                 </div>
-                <div class="row control-group">
+                <div class="klassen">
                     <%--<div class="form-group col-xs-12 floating-label-form-group controls">--%>
                         <label>Klas</label>
                         <tr>
                             <%
-                                Klas klassen = (Klas) session.getAttribute("klassen");
-                                request.setAttribute("klassen", klassen);
+                                model.KlasDAO klassenDAO;
+                                klassenDAO = new KlasDAO();
+
+
+                                request.setAttribute("klassen", klassenDAO.findAll());
                             %>
                             <td>
-                                <form:select path="klas">
-                                <form:option value="NONE" label="--- Select ---" />
-                                <form:options items="${klassen.klasCode}" />
-                                </form:select>
+                                <select name = "klasCode">
+                                    <option value="NONE" label="--- Select ---" />
+                                    <c:forEach var="post" items="${klassen}">
+                                        <option value="${post.klasCode}" label="${post.klasCode}" />
+                                    </c:forEach>
+                                </select>
                             </td>
                             <%--<td><form:errors path="" cssClass="error" /></td>--%>
                         </tr>
-                    </div>
                 </div>
                 <div class="row control-group">
                     <div class="form-group col-xs-12 floating-label-form-group controls">
                         <label>Bent u een docent ?</label>
-                        <input type="text" placeholder="Docent ?" name="isDocent" required data-validation-required-message="isDocent">
+                        <input type="text" placeholder="Docent ?" name="isDocent" required data-validation-required-message="isDocent" value = 0>
                     </div>
                 </div>
                 <div class="row control-group">
                     <div class="form-group col-xs-12 floating-label-form-group controls">
                         <label>Wachtwoord</label>
-                        <input type="password" placeholder="Wachtwoord" name="pass1" required data-validation-required-message="Wachtwoord">
+                        <input type="password" placeholder="Wachtwoord" name="pass1" required data-validation-required-message="Wachtwoord" value = "">
                     </div>
                 </div>
                 <div class="row control-group">
                     <div class="form-group col-xs-12 floating-label-form-group controls">
                         <label>Wachtwoord nogmaals</label>
-                        <input type="password" placeholder="Wachtwoord nogmaals" name="pass2" required data-validation-required-message="Wachtwoord nogmaals">
+                        <input type="password" placeholder="Wachtwoord nogmaals" name="pass2" required data-validation-required-message="Wachtwoord nogmaals" value = "">
                     </div>
                 </div>
                 <br>
@@ -163,7 +168,6 @@
                     </div>
                 </div>
             </form>
-        </div>
     </div>
 </div>
 

@@ -73,7 +73,7 @@ public class DeadlineServlet extends HttpServlet{
                 deadLine.setURI(beoordeling);
             }
             d.addDeadline(deadLine);
-            rd = request.getRequestDispatcher("/deadline/"+ userSession.getK() + "/mydeadlines.jsp");
+            rd = request.getRequestDispatcher("/deadline/" + userSession.getK() + "/mydeadlines.jsp");
             rd.forward(request, response);
         }
 
