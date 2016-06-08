@@ -76,8 +76,6 @@ public class DeadlineServlet extends HttpServlet{
             rd = request.getRequestDispatcher("/deadline/" + userSession.getK() + "/mydeadlines.jsp");
             rd.forward(request, response);
         }
-
-
     }
 }
 

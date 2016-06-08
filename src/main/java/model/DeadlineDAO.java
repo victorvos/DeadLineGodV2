@@ -108,9 +108,7 @@ public class DeadlineDAO extends BaseDAO {
 
             pstmt.executeUpdate();
         }catch (SQLException sqle) { sqle.printStackTrace(); }
-
         return d;
-
     }
 
     public boolean delete(Deadline d) {
@@ -124,7 +122,6 @@ public class DeadlineDAO extends BaseDAO {
             if (pstmt.execute()) {
                 pstmt.executeUpdate();
             }
-
         } catch (SQLException sqle) {
             sqle.printStackTrace();
         }

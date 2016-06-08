@@ -82,13 +82,9 @@ public class UserDAO extends BaseDAO {
         boolean login = false;
 
         String email = u.getEmail();
-//            String password = u.getPassword();
-//            String naam = u.getNaam();
-//            int isDocent = u.getIsDocent();
-//            String tussenvoegsel = u.getTussenvoegsel();
-//            Klas k = u.getK();
-        if(!findByEmail(email)){
-            User user = selectUsers("select * from user where email = " + email).get(0);
+
+        if(findByEmail(email)){
+            User user = selectUsers("select * from user where email = "+email+"").get(0);
             String password = user.getPassword();
 
             if (password.equals(u.getPassword())) {
@@ -103,12 +99,7 @@ public class UserDAO extends BaseDAO {
     public User getUser(String em){
         String email = em;
 
-//            String password = u.getPassword();
-//            String naam = u.getNaam();
-//            int isDocent = u.getIsDocent();
-//            String tussenvoegsel = u.getTussenvoegsel();
-//            Klas k = u.getK();
-        if(!findByEmail(email)){
+        if(findByEmail(email)){
             User user = selectUsers("select * from user where email = " + email + "").get(0);
             return user;
         }

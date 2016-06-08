@@ -14,7 +14,7 @@ public class BaseDAO {
             InitialContext ic = new InitialContext();
             DataSource ds = (DataSource) ic.lookup("java:comp/env/jdbc/MySQLDS");
 
-            result = ds.getConnection();
+            result = ds.getConnection();            // CHECK DS.CEONNECTION (not working)!!
         } catch (Exception ex) {
             throw new RuntimeException(ex);
         }

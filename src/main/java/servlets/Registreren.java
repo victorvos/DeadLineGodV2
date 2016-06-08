@@ -17,10 +17,7 @@ import java.io.IOException;
  */
 
 public class Registreren extends HttpServlet {
-    private String naam, emailadres, password1, password2;
-    private String tussenvoegsel;
-    private String achternaam;
-    private String klasCode;
+    private String naam, emailadres, password1, password2, tussenvoegsel, achternaam, klasCode;
     private int isDocent;
     private model.Klas klas;
     private model.UserDAO userDAO;

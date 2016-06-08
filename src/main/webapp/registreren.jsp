@@ -1,6 +1,5 @@
 <%@ page import="model.KlasDAO" %>
-<%@ page import="model.Klas" %>
-<%@ page import="java.util.List" %><%--
+<%--
   Created by IntelliJ IDEA.
   User: Victor
   Date: 26-4-2016
@@ -120,8 +119,8 @@
                         <input type="text" placeholder="Achternaam" name="achternaam" required data-validation-required-message="achternaam" value = "">
                     </div>
                 </div>
-                <div class="klassen">
-                    <%--<div class="form-group col-xs-12 floating-label-form-group controls">--%>
+                <div class="row control-group">
+                    <div class="form-group col-xs-12 floating-label-form-group controls">
                         <label>Klas</label>
                         <tr>
                             <%
@@ -133,19 +132,21 @@
                             %>
                             <td>
                                 <select name = "klasCode">
-                                    <option value="NONE" label="--- Select ---" />
                                     <c:forEach var="post" items="${klassen}">
                                         <option value="${post.klasCode}" label="${post.klasCode}" />
                                     </c:forEach>
                                 </select>
                             </td>
-                            <%--<td><form:errors path="" cssClass="error" /></td>--%>
                         </tr>
+                    </div>
                 </div>
                 <div class="row control-group">
                     <div class="form-group col-xs-12 floating-label-form-group controls">
                         <label>Bent u een docent ?</label>
-                        <input type="text" placeholder="Docent ?" name="isDocent" required data-validation-required-message="isDocent" value = 0>
+                            <select name = "isDocent">
+                                <option value="0" label="Nee"/>
+                                <option value="1" label="Ja"/>
+                            </select>
                     </div>
                 </div>
                 <div class="row control-group">
