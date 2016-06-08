@@ -38,8 +38,8 @@ public class UserDAO extends BaseDAO {
     }
 
 
-    public boolean findByEmail(String em) {
-        int numberOfUsersWithEmail = selectUsers("select * from user where email = "+em+"").size();
+    public boolean findByEmail(String email) {
+        int numberOfUsersWithEmail = selectUsers("SELECT * FROM user WHERE email='"+email+"'").size();
         return numberOfUsersWithEmail != 0;
     }
 
@@ -84,7 +84,7 @@ public class UserDAO extends BaseDAO {
         String email = u.getEmail();
 
         if(findByEmail(email)){
-            User user = selectUsers("select * from user where email = "+email+"").get(0);
+            User user = selectUsers("SELECT * FROM user WHERE email='"+email+"'").get(0);
             String password = user.getPassword();
 
             if (password.equals(u.getPassword())) {
@@ -100,7 +100,7 @@ public class UserDAO extends BaseDAO {
         String email = em;
 
         if(findByEmail(email)){
-            User user = selectUsers("select * from user where email = " + email + "").get(0);
+            User user = selectUsers("SELECT * FROM user WHERE email='"+email+"'").get(0);
             return user;
         }
         else{

@@ -131,7 +131,9 @@
                                 request.setAttribute("klassen", klassenDAO.findAll());
                             %>
                             <td>
+                                <br>
                                 <select name = "klasCode">
+                                    <option value="" label="--Klas--"/>
                                     <c:forEach var="post" items="${klassen}">
                                         <option value="${post.klasCode}" label="${post.klasCode}" />
                                     </c:forEach>
@@ -143,9 +145,11 @@
                 <div class="row control-group">
                     <div class="form-group col-xs-12 floating-label-form-group controls">
                         <label>Bent u een docent ?</label>
+                        <br>
                             <select name = "isDocent">
-                                <option value="0" label="Nee"/>
-                                <option value="1" label="Ja"/>
+                                <option value=-1 label="--Docent--"/>
+                                <option value=0 label="Nee"/>
+                                <option value=1 label="Ja"/>
                             </select>
                     </div>
                 </div>

@@ -49,7 +49,7 @@ public class LoginServlet extends HttpServlet {
         } else if (userDAO.login(user)){
             session.setAttribute("loggedUser", user);
             session.setAttribute("klassen", klasDAO.findAll());
-            rd = request.getRequestDispatcher("/deadline/"+ user.getK() + "/mydeadlines.jsp");
+            rd = request.getRequestDispatcher("/deadline/mydeadlines.jsp");
             rd.forward(request, response);
         }
     }
