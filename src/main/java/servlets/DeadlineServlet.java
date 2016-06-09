@@ -45,7 +45,7 @@ public class DeadlineServlet extends HttpServlet{
         {
             try
             {
-                datum = (Date) sdf.parse(datum;
+                datum = sdf.parse(startDateStr);
             }
             catch(ParseException e)
             {
