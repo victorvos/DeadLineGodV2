@@ -57,7 +57,7 @@ public class DeadlineServlet extends HttpServlet{
             request.setAttribute("message", "<font color=red>U bent nog niet ingelogd</font>");
             rd.include(request, response);
         } else if (naam.isEmpty()||datum == null) {
-            rd = request.getRequestDispatcher("/deadline/" + userSession.getK() + "/mydeadlines.jsp");
+            rd = request.getRequestDispatcher("/deadline/mydeadlines.jsp");
             request.setAttribute("message", "<font color=red>Vul alle velden in aub !</font>");
             rd.include(request, response);
         } else {
@@ -72,7 +72,7 @@ public class DeadlineServlet extends HttpServlet{
                 deadLine.setURI(beoordeling);
             }
             d.addDeadline(deadLine);
-            rd = request.getRequestDispatcher("/deadline/" + userSession.getK() + "/mydeadlines.jsp");
+            rd = request.getRequestDispatcher("/deadline/mydeadlines.jsp");
             rd.forward(request, response);
         }
     }

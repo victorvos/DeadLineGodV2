@@ -136,12 +136,27 @@ public class DeadlineDAO extends BaseDAO {
 //        return selectDeadlines("select * from deadlines order by population desc limit 10");
 //    }
 
+    public boolean checkEmptyDeadlines(Klas k){
+        int numberOfDeadlinedWithKlas = selectDeadlines("SELECT * FROM deadline WHERE klas='"+k+"'").size();
+        return numberOfDeadlinedWithKlas != 0;
+    }
+
     public List<Deadline> getDeadlinesThisWeekPerKlas(Klas k) {
-        return selectDeadlines("select * from deadline where datum BETWEEN TRUNC(sysdate, 'DAY') and TRUNC(sysdate+6, 'DAY')-1  from dual and KlasCode ='"+k+"')");
+        if (checkEmptyDeadlines(k)){
+            return selectDeadlines("SELECT * from deadline WHERE datum BETWEEN TRUNC(sysdate, 'DAY') and TRUNC(sysdate+6, 'DAY')-1  from dual and klasCode ='"+k+"')");
+        }
+        else {
+            return selectDeadlines("SELECT * from deadline");
+        }
     }
 
     public List<Deadline> getDeadlinesThisMonthPerKlas(Klas k) {
-        return selectDeadlines("select * from deadline where datum BETWEEN TRUNC(sysdate, 'MONTH') and TRUNC(sysdate+30, 'MONTH')-1  from dual and KlasCode='"+k+"' ORDER BY datum ASC)");
+        if (checkEmptyDeadlines(k)){
+            return selectDeadlines("SELECT * from deadline WHERE datum BETWEEN TRUNC(sysdate, 'MONTH') and TRUNC(sysdate+30, 'MONTH')-1  from dual and klasCode='"+k+"' ORDER BY datum ASC)");
+        }
+        else {
+            return selectDeadlines("SELECT * from deadline");
+        }
     }
 
 //    public Deadline findByID(String ID) {
