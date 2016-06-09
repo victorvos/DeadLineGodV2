@@ -56,7 +56,7 @@
     </filter>
     <filter-mapping>
         <filter-name>MyFirstFilter</filter-name>
-        <url-pattern>/deadline/mydeadlines.do</url-pattern>
+        <url-pattern>/deadline/*</url-pattern>
         <dispatcher>REQUEST</dispatcher>
         <dispatcher>FORWARD</dispatcher>
     </filter-mapping>

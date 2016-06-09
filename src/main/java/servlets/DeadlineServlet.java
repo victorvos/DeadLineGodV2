@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -58,7 +57,7 @@ public class DeadlineServlet extends HttpServlet{
             request.setAttribute("message", "<font color=red>U bent nog niet ingelogd</font>");
             rd.include(request, response);
         } else if (naam.isEmpty()||datum == null) {
-            rd = request.getRequestDispatcher("/deadline/"+ userSession.getK() + "/mydeadlines.jsp");
+            rd = request.getRequestDispatcher("/deadline/" + userSession.getK() + "/mydeadlines.jsp");
             request.setAttribute("message", "<font color=red>Vul alle velden in aub !</font>");
             rd.include(request, response);
         } else {

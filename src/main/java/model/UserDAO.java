@@ -96,9 +96,7 @@ public class UserDAO extends BaseDAO {
         return login;
     }
 
-    public User getUser(String em){
-        String email = em;
-
+    public User getUser(String email){
         if(findByEmail(email)){
             User user = selectUsers("SELECT * FROM user WHERE email='"+email+"'").get(0);
             return user;

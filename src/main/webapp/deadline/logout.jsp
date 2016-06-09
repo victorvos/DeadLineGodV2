@@ -1,3 +1,15 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="model.UserDAO" %>
+<%@ page import="model.User" %>
+<%@ page import="java.util.List" %><%--
+  Created by IntelliJ IDEA.
+  User: Eigenaar
+  Date: 22-5-2016
+  Time: 20:16
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
 <%--
   Created by IntelliJ IDEA.
   User: Eigenaar
@@ -6,13 +18,6 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page import="model.User" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="model.Deadline" %>
-<%@ page import="model.Klas" %>
-<%@ page import="java.util.List" %>
-<%@ page import="model.DeadlineDAO" %>
-
-
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
          pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -108,26 +113,21 @@
             <!-- Contact Form - Enter your email address on line 19 of the mail/contact_me.php file to make this form work. -->
             <!-- WARNING: Some web hosts do not allow emails to be sent through forms to common mail hosts like Gmail or Yahoo. It's recommended that you use a private domain email address! -->
             <!-- NOTE: To use the contact form, your site must be on a live web host with PHP! The form will not work locally! -->
-            <form name="sentMessage" action="blogpost.do" method="post">
+            <form name="sentMessage" action="logout.do" method="post">
+                <%
+                    UserDAO userDAO = null;
+                    User user = null;
+                    user = userDAO.getUser(user.getEmail());
 
+                    request.setAttribute("user", user);
+                %>
+                <c:forEach var="post" items="${user}">
+                    <div class="user">
+                        <b>${user.naam} ${user.achternaam}</b> is uitgelogd !
+                    </div>
+                </c:forEach>
             </form>
         </div>
     </div>
 </div>
-
-
-
-
-<hr>
-
-<!-- jQuery -->
-<script src="../js/jquery.js"></script>
-
-<!-- Bootstrap Core JavaScript -->
-<script src="../js/bootstrap.min.js"></script>
-
-<!-- Custom Theme JavaScript -->
-<script src="../js/clean-blog.min.js"></script>
-
-</body>
 </html>

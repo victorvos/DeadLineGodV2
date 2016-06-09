@@ -31,8 +31,6 @@ public class Registreren extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-
-
         session.setAttribute("klassen", klassenDAO.findAll());
 
         tussenvoegsel = request.getParameter("tussenvoegsel");

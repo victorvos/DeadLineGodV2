@@ -1,11 +1,20 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: Eigenaar
+  Date: 22-5-2016
+  Time: 17:04
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page import="model.User" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="model.Deadline" %>
+<%@ page import="model.Klas" %>
 <%@ page import="java.util.List" %>
 <%@ page import="model.DeadlineDAO" %>
+
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
          pageEncoding="ISO-8859-1"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -35,7 +44,7 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-  <title>Blog Post</title>
+    <title>Blog Post</title>
 </head>
 <body>
 <!-- Navigation -->
@@ -48,7 +57,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
-                </button>
+            </button>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -58,10 +67,10 @@
                     <a href="/index.jsp">Logout</a>
                 </li>
                 <li>
-                    <a href="/deadline/myaccount.jsp">Post Maken</a>
+                    <a href="/blogger/myaccount.jsp">Post Maken</a>
                 </li>
                 <li>
-                    <a href="/deadline/mydeadlines.jsp.jsp">Mijn Posts</a>
+                    <a href="/blogger/myposts.jsp">Mijn Posts</a>
                 </li>
             </ul>
         </div>
@@ -79,12 +88,12 @@
                 <div class="page-heading">
                     <h1>Blog Post</h1>
                     <%--<%--%>
-                        <%--if ((session.getAttribute("user") == null) || (session.getAttribute("user") == "")) {--%>
-                            <%--out.println("You are not logged in");--%>
-                        <%--}--%>
-                        <%--else {--%>
-                            <%--out.print("Welkom op jou Blog ");--%>
-                        <%--}--%>
+                    <%--if ((session.getAttribute("user") == null) || (session.getAttribute("user") == "")) {--%>
+                    <%--out.println("You are not logged in");--%>
+                    <%--}--%>
+                    <%--else {--%>
+                    <%--out.print("Welkom op jou Blog ");--%>
+                    <%--}--%>
                     <%--%>--%>
                     <hr class="small">
                 </div>
@@ -100,43 +109,11 @@
             <!-- WARNING: Some web hosts do not allow emails to be sent through forms to common mail hosts like Gmail or Yahoo. It's recommended that you use a private domain email address! -->
             <!-- NOTE: To use the contact form, your site must be on a live web host with PHP! The form will not work locally! -->
             <form name="sentMessage" action="blogpost.do" method="post">
-                <p>${message}</p>
-                <div class="row control-group">
-                    <div class="form-group col-xs-12 floating-label-form-group controls">
-                        <label>Onderwerp</label>
-                        <input type="text" placeholder="Onderwerp" name="subject" required data-validation-required-message="Onderwerp">
-                    </div>
-                </div>
-                <div class="row control-group">
-                    <div class="form-group col-xs-12 floating-label-form-group controls">
-                        <label>Text</label>
-                        <textarea rows="10" cols="60" placeholder="Text" name="text" required data-validation-required-message="Text"></textarea>
-                    </div>
-                </div>
-                <%
-                    DeadlineDAO d = null;
-                    User userSession = (User) session.getAttribute("loggedUser");
-                    List<Deadline> deadlineListThisWeek = d.getDeadlinesThisWeekPerKlas(userSession.getK());
 
-                    request.setAttribute("deadLinesThisWeek", deadlineListThisWeek);
-                %>
-                <c:forEach var="post" items="${deadLinesThisWeek}">
-                    <div class="post">
-                            ${post.datum} - <b>${post.naam}</b> - ${post.beoordeling}
-                    </div>
-                </c:forEach>
-                <div class="row">
-                    <div class="form-group col-xs-12">
-                        <button type="submit" value="submit">submit</button>
-                    </div>
-                </div>
             </form>
         </div>
     </div>
 </div>
-
-
-
 
 <hr>
 
