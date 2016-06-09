@@ -94,9 +94,9 @@
     </div>
 </header>
 <!-- Main Content -->
-<div class="container">
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    <div class="deadlineForm" style="width:500px;
+            float:left;
+            padding:10px;" >
             <!-- Contact Form - Enter your email address on line 19 of the mail/contact_me.php file to make this form work. -->
             <!-- WARNING: Some web hosts do not allow emails to be sent through forms to common mail hosts like Gmail or Yahoo. It's recommended that you use a private domain email address! -->
             <!-- NOTE: To use the contact form, your site must be on a live web host with PHP! The form will not work locally! -->
@@ -128,28 +128,28 @@
 
                 <p>${message}</p>
 
-                <div class="row control-group">
+                <div>
                     <div class="form-group col-xs-12 floating-label-form-group controls">
                         <label>Datum</label>
                         <input type="text" placeholder="Datum" name="datum" required data-validation-required-message="Datum" value = "${date}" size="40">
                     </div>
                 </div>
 
-                <div class="row control-group">
+                <div>
                     <div class="form-group col-xs-12 floating-label-form-group controls">
                         <label>Naam</label>
                         <input type="text" placeholder="Naam" name="naam" required data-validation-required-message="Naam" value = "" size="40">
                     </div>
                 </div>
 
-                <div class="row control-group">
+                <div>
                     <div class="form-group col-xs-12 floating-label-form-group controls">
                         <label>Beschrijving</label>
                         <textarea rows="4" cols="40" placeholder="Beschrijving" name="beschrijving" required data-validation-required-message="Beschrijving">${post.beschrijving}</textarea>
                     </div>
                 </div>
 
-                <div class="row control-group">
+                <div>
                     <div class="form-group col-xs-12 floating-label-form-group controls">
                         <label>URI</label>
                         <input type="text" placeholder="URI" name="URI" required data-validation-required-message="URI" value = "${post.URI}" size="40">
@@ -157,7 +157,7 @@
                 </div>
 
                 <c:if test="${user.isDocent() == 1}">
-                    <div class="row control-group">
+                    <div>
                         <div class="form-group col-xs-12 floating-label-form-group controls">
                             <label>Beoordeling</label>
                             <input type="text" placeholder="beoordeling" name="beoordeling" required data-validation-required-message="beoordeling" value = "${post.beoordeling}" size="40">
@@ -165,7 +165,7 @@
                     </div>
                 </c:if>
                 <c:if test="${user.isDocent() == 0}">
-                    <div class="row control-group">
+                    <div>
                         <div class="form-group col-xs-12 floating-label-form-group controls">
                             <label>Beoordeling</label>
                             <input type="text" placeholder="beoordeling" name="beoordeling" required data-validation-required-message="beoordeling" value = "${post.beoordeling}" size="40" readonly>
@@ -180,78 +180,90 @@
                     <%--</div>--%>
                     <%--<div class="form-group col-xs-12 floating-label-form-group controls">></div>--%>
                 <%--</div>--%>
+            </form>
+    </div>
 
 
-                <c:forEach var="post" items="${deadLinesThisWeek}" varStatus="vs">
-                    <div class="post">
-                            ${post.datum} - <b>${post.naam}</b>
-                                <!-- Button trigger modal -->
-                                <div class="button">
-                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal${vs.index}" id="viewDetailButton${vs.index}">
-                                        Aanpassen
-                                    </button>
-                                </div>
-                                <!-- Modal -->
-                                <div class="modal fade" id="myModal${vs.index}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog" id="myModal${vs.index}"`role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h4 class="modal-title" id="myModalLabel">${post.datum} - <b>${post.naam}</b></h4>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div class="row control-group">
-                                                    <div class="form-group col-xs-12 floating-label-form-group controls">
-                                                        <label>Datum</label>
-                                                        <input type="text" placeholder="Datum" name="datum" required data-validation-required-message="Datum" value = "${post.datum}" size="40">
-                                                    </div>
-                                                </div>
-                                                <div class="row control-group">
-                                                    <div class="form-group col-xs-12 floating-label-form-group controls">
-                                                        <label>Naam</label>
-                                                        <input type="text" placeholder="Naam" name="naam" required data-validation-required-message="Naam" value = "${post.naam}" size="40">
-                                                    </div>
-                                                </div>
-                                                <div class="row control-group">
-                                                    <div class="form-group col-xs-12 floating-label-form-group controls">
-                                                        <label>Beschrijving</label>
-                                                        <textarea rows="4" cols="40" placeholder="Beschrijving" name="beschrijving" required data-validation-required-message="Beschrijving">${post.beschrijving}</textarea>
-                                                    </div>
-                                                </div>
-                                                <div class="row control-group">
-                                                    <div class="form-group col-xs-12 floating-label-form-group controls">
-                                                        <label>URI</label>
-                                                        <input type="text" placeholder="URI" name="URI" required data-validation-required-message="URI" value = "${post.URI}" size="40">
-                                                    </div>
-                                                </div>
-                                                <c:if test="${user.isDocent() == 1}">
-                                                    <div class="row control-group">
-                                                        <div class="form-group col-xs-12 floating-label-form-group controls">
-                                                            <label>Beoordeling</label>
-                                                            <input type="text" placeholder="beoordeling" name="beoordeling" required data-validation-required-message="beoordeling" value = "${post.beoordeling}" size="40">
-                                                        </div>
-                                                    </div>
-                                                </c:if>
-                                                <c:if test="${user.isDocent() == 0}">
-                                                    <div class="row control-group">
-                                                        <div class="form-group col-xs-12 floating-label-form-group controls">
-                                                            <label>Beoordeling</label>
-                                                            <input type="text" placeholder="beoordeling" name="beoordeling" required data-validation-required-message="beoordeling" value = "${post.beoordeling}" size="40" readonly>
-                                                        </div>
-                                                    </div>
-                                                </c:if>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                <button type="button" class="btn btn-primary">Save changes</button>
-                                            </div>
-                                        </div>
+<div class="deadlineThisWeek" style="width:500px;
+            float:left;
+            padding:20px;" >
+        <form name="sentMessage" action="/deadline/mydeadlines.do" method="post">
+            <br>
+            <br>
+        <c:forEach var="post" items="${deadLinesThisWeek}" varStatus="vs">
+            <div class="post">
+                ${post.datum} - <b>${post.naam}</b>
+                <!-- Button trigger modal -->
+                <div class="button">
+                    <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal${vs.index}" id="viewDetailButton${vs.index}">
+                        Aanpassen
+                    </button>
+                </div>
+                <!-- Modal -->
+                <div class="modal fade" id="myModal${vs.index}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" id="myModal${vs.index}"`role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="myModalLabel">${post.datum} - <b>${post.naam}</b></h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row control-group">
+                                    <div class="form-group col-xs-12 floating-label-form-group controls">
+                                        <label>Datum</label>
+                                        <input type="text" placeholder="Datum" name="datum" required data-validation-required-message="Datum" value = "${post.datum}" size="40">
                                     </div>
                                 </div>
+                                <div class="row control-group">
+                                    <div class="form-group col-xs-12 floating-label-form-group controls">
+                                        <label>Naam</label>
+                                        <input type="text" placeholder="Naam" name="naam" required data-validation-required-message="Naam" value = "${post.naam}" size="40">
+                                    </div>
+                                </div>
+                                <div class="row control-group">
+                                    <div class="form-group col-xs-12 floating-label-form-group controls">
+                                        <label>Beschrijving</label>
+                                        <textarea rows="4" cols="40" placeholder="Beschrijving" name="beschrijving" required data-validation-required-message="Beschrijving">${post.beschrijving}</textarea>
+                                    </div>
+                                </div>
+                                <div class="row control-group">
+                                    <div class="form-group col-xs-12 floating-label-form-group controls">
+                                        <label>URI</label>
+                                        <input type="text" placeholder="URI" name="URI" required data-validation-required-message="URI" value = "${post.URI}" size="40">
+                                    </div>
+                                </div>
+                                <c:if test="${user.isDocent() == 1}">
+                                    <div class="row control-group">
+                                        <div class="form-group col-xs-12 floating-label-form-group controls">
+                                            <label>Beoordeling</label>
+                                            <input type="text" placeholder="beoordeling" name="beoordeling" required data-validation-required-message="beoordeling" value = "${post.beoordeling}" size="40">
+                                        </div>
+                                    </div>
+                                </c:if>
+                                <c:if test="${user.isDocent() == 0}">
+                                    <div class="row control-group">
+                                        <div class="form-group col-xs-12 floating-label-form-group controls">
+                                            <label>Beoordeling</label>
+                                            <input type="text" placeholder="beoordeling" name="beoordeling" required data-validation-required-message="beoordeling" value = "${post.beoordeling}" size="40" readonly>
+                                        </div>
+                                    </div>
+                                </c:if>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
                     </div>
-                </c:forEach>
+                </div>
+            </div>
+        </c:forEach>
+        </form>
+    </div>
+
+
 
 
 
@@ -286,17 +298,6 @@
                     <%--</div>--%>
                 <%--</c:forEach>--%>
 
-
-
-            </form>
-        </div>
-    </div>
-</div>
-
-
-
-
-<hr>
 
 <!-- jQuery -->
 <script src="../js/jquery.js"></script>
