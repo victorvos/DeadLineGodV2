@@ -59,10 +59,10 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a href="/index.jsp">Logout</a>
+                    <a href="/index.jsp"><font color=#8b0000>Logout</font></a>
                 </li>
                 <li>
-                    <a href="/deadline/mydeadlines.jsp">My Deadlines</a>
+                    <a href="/deadline/mydeadlines.jsp"><font color=#8b0000>My Deadlines</font></a>
                 </li>
             </ul>
         </div>
@@ -187,7 +187,7 @@
                             ${post.datum} - <b>${post.naam}</b>
                                 <!-- Button trigger modal -->
                                 <div class="button">
-                                    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal${vs.index}" id="viewDetailButton${vs.index}">
+                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal${vs.index}" id="viewDetailButton${vs.index}">
                                         Aanpassen
                                     </button>
                                 </div>
