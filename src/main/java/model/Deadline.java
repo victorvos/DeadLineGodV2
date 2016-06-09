@@ -11,7 +11,7 @@ public class Deadline {
     private String URI;
     private Date datum;
     private int ID;
-    private int beoordeling=0;
+    private String beoordeling;
     private Klas k;
 
     public Deadline(String naam, Date datum, Klas k) {
@@ -57,11 +57,11 @@ public class Deadline {
         this.ID = ID;
     }
 
-    public int getBeoordeling() {
+    public String getBeoordeling() {
         return beoordeling;
     }
 
-    public void setBeoordeling(int beoordeling) {
+    public void setBeoordeling(String beoordeling) {
         this.beoordeling = beoordeling;
     }
 

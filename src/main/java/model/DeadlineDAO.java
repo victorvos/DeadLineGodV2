@@ -23,7 +23,7 @@ public class DeadlineDAO extends BaseDAO {
                 String naam = dbResultSet.getString("naam");
                 String beschrijving = dbResultSet.getString("beschrijving");
                 String URI = dbResultSet.getString("URI");
-                int beoordeling = dbResultSet.getInt("beoordeling");
+                String beoordeling = dbResultSet.getString("beoordeling");
                 Date datum = dbResultSet.getDate("datum");
                 Klas k = new Klas(dbResultSet.getString("klasCode"));
 
@@ -44,7 +44,7 @@ public class DeadlineDAO extends BaseDAO {
     public Deadline addDeadline(Deadline d) {
         try (Connection con = super.getConnection()) {
             String URI = "", beschrijving = "";
-            int beoordeling = 0;
+            String beoordeling = "";
 
             String naam = d.getNaam();
             if(!d.getURI().equals(null)){
@@ -53,7 +53,7 @@ public class DeadlineDAO extends BaseDAO {
             if(!d.getBeschrijving().equals(null)){
                 beschrijving = d.getBeschrijving();
             }
-            if(d.getBeoordeling()!=0){
+            if(d.getBeoordeling()!= null){
                 beoordeling = d.getBeoordeling();
             }
             String k = d.getK().getKlasCode();
@@ -64,7 +64,7 @@ public class DeadlineDAO extends BaseDAO {
             pstmt.setString(2, beschrijving);
             pstmt.setString(3, URI);
             pstmt.setString(4, naam);
-            pstmt.setInt(5, beoordeling);
+            pstmt.setString(5, beoordeling);
             pstmt.setDate(6, datum);
             pstmt.setString(7, k);
 
@@ -81,7 +81,7 @@ public class DeadlineDAO extends BaseDAO {
         try(Connection con = super.getConnection()) {
 
             String URI = "", beschrijving = "";
-            int beoordeling = 0;
+            String beoordeling = "";
 
             String naam = d.getNaam();
             if(!d.getURI().equals(null)){
@@ -90,7 +90,7 @@ public class DeadlineDAO extends BaseDAO {
             if(!d.getBeschrijving().equals(null)){
                 beschrijving = d.getBeschrijving();
             }
-            if(d.getBeoordeling()!=0){
+            if(d.getBeoordeling()!=null){
                 beoordeling = d.getBeoordeling();
             }
             String k = d.getK().getKlasCode();
@@ -102,7 +102,7 @@ public class DeadlineDAO extends BaseDAO {
             pstmt.setString(1, naam);
             pstmt.setString(2, beschrijving);
             pstmt.setString(3, URI);
-            pstmt.setInt(4, beoordeling);
+            pstmt.setString(4, beoordeling);
             pstmt.setDate(5, datum);
             pstmt.setInt(6, ID);
 
@@ -159,7 +159,12 @@ public class DeadlineDAO extends BaseDAO {
         }
     }
 
-//    public Deadline findByID(String ID) {
-//        return selectDeadlines("select * from deadline where ID = "+ ID + "").get(0);
+    public Deadline findByID(Integer ID) {
+        return selectDeadlines("select * from deadline where ID = "+ ID + "").get(0);
+    }
+
+//    public int getID(String email) {
+//        return Integer.parseInt(String.valueOf(selectDeadlines("select ID from deadline where email = "+ email + "").get(0)));
 //    }
+
 }

@@ -34,6 +34,15 @@
         <url-pattern>/deadline/mydeadlines.do</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>DeadlineUpdateServlet</servlet-name>
+        <servlet-class>servlets.DeadlineUpdateServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeadlineUpdateServlet</servlet-name>
+        <url-pattern>/deadline/deadlineupdate.do</url-pattern>
+    </servlet-mapping>
+
 
     <servlet>
         <servlet-name>Jersey REST Service</servlet-name>

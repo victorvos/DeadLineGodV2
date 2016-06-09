@@ -7,6 +7,7 @@
 <%@ page import="java.text.ParseException" %>
 <%@ page import="java.text.DateFormat" %>
 <%@ page import="java.util.Calendar" %>
+<%@ page import="model.KlasDAO" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
          pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -93,6 +94,7 @@
         </div>
     </div>
 </header>
+
 <!-- Main Content -->
     <div class="deadlineForm" style="width:500px;
             float:left;
@@ -101,7 +103,6 @@
             <!-- WARNING: Some web hosts do not allow emails to be sent through forms to common mail hosts like Gmail or Yahoo. It's recommended that you use a private domain email address! -->
             <!-- NOTE: To use the contact form, your site must be on a live web host with PHP! The form will not work locally! -->
             <form name="sentMessage" action="/deadline/mydeadlines.do" method="post">
-
                 <%
                     model.DeadlineDAO dDAO;
                     dDAO = new DeadlineDAO();
@@ -125,7 +126,7 @@
                     String time = tipe.format(cal.getTime());
                     request.setAttribute("date", time);
                 %>
-
+                <h1>Maak Deadline:</h1>
                 <p>${message}</p>
 
                 <div>
@@ -180,113 +181,94 @@
                     <%--</div>--%>
                     <%--<div class="form-group col-xs-12 floating-label-form-group controls">></div>--%>
                 <%--</div>--%>
+                <div class="form-group col-xs-12">
+                    < <button type="submit" class="btn btn-primary"  value="updatedeadline">Maak Deadline</button>
+                </div>
             </form>
     </div>
 
 
-<div class="deadlineThisWeek" style="width:500px;
-            float:left;
-            padding:20px;" >
-        <form name="sentMessage" action="/deadline/mydeadlines.do" method="post">
-            <br>
-            <br>
-            <%
-                String naam, beschrijving, URI, datum;
-                int beoordeling;
-                dDAO = new DeadlineDAO();
+<%--<div class="deadlineThisWeek" style="width:500px;--%>
+            <%--float:left;--%>
+            <%--padding:20px;" >--%>
+        <%--<form name="sentMessage" action="/deadline/deadlineupdate.do" method="post">--%>
+            <%--<br>--%>
+            <%--<br>--%>
+            <%--<br>--%>
+            <%--<br>--%>
+        <%--<c:forEach var="post" items="${deadLinesThisWeek}" varStatus="vs">--%>
+            <%--<div class="post">--%>
+                <%--${post.datum} - <b>${post.naam}</b>--%>
+                <%--<!-- Button trigger modal -->--%>
+                <%--<div class="button">--%>
+                    <%--<button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal${vs.index}" id="viewDetailButton${vs.index}">--%>
+                        <%--Aanpassen--%>
+                    <%--</button>--%>
+                <%--</div>--%>
+                <%--<!-- Modal -->--%>
+                <%--<div class="modal fade" id="myModal${vs.index}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">--%>
+                    <%--<div class="modal-dialog" id="myModal${vs.index}"`role="document">--%>
+                        <%--<div class="modal-content">--%>
+                            <%--<div class="modal-header">--%>
+                                <%--<h4 class="modal-title" id="myModalLabel">${post.datum} - <b>${post.naam}</b></h4>--%>
+                                <%--<button type="button" class="close" data-dismiss="modal" aria-label="Close">--%>
+                                    <%--<span aria-hidden="true">&times;</span>--%>
+                                <%--</button>--%>
+                            <%--</div>--%>
+                            <%--<div class="modal-body">--%>
+                                <%--<div class="row control-group">--%>
+                                    <%--<div class="form-group col-xs-12 floating-label-form-group controls">--%>
+                                        <%--<label>Datum</label>--%>
+                                        <%--<input type="text" placeholder="Datum" name="datumUpdate" required data-validation-required-message="Datum" value = "${post.datum}" size="40">--%>
+                                    <%--</div>--%>
+                                <%--</div>--%>
+                                <%--<div class="row control-group">--%>
+                                    <%--<div class="form-group col-xs-12 floating-label-form-group controls">--%>
+                                        <%--<label>Naam</label>--%>
+                                        <%--<input type="text" placeholder="Naam" name="naamUpdate" required data-validation-required-message="Naam" value = "${post.naam}" size="40">--%>
+                                    <%--</div>--%>
+                                <%--</div>--%>
+                                <%--<div class="row control-group">--%>
+                                    <%--<div class="form-group col-xs-12 floating-label-form-group controls">--%>
+                                        <%--<label>Beschrijving</label>--%>
+                                        <%--<textarea rows="4" cols="40" placeholder="Beschrijving" name="beschrijvingUpdate" required data-validation-required-message="Beschrijving">${post.beschrijving}</textarea>--%>
+                                    <%--</div>--%>
+                                <%--</div>--%>
+                                <%--<div class="row control-group">--%>
+                                    <%--<div class="form-group col-xs-12 floating-label-form-group controls">--%>
+                                        <%--<label>URI</label>--%>
+                                        <%--<input type="text" placeholder="URI" name="URIUpdate" required data-validation-required-message="URI" value = "${post.URI}" size="40">--%>
+                                    <%--</div>--%>
+                                <%--</div>--%>
+                                <%--<c:if test="${user.isDocent() == 1}">--%>
+                                    <%--<div class="row control-group">--%>
+                                        <%--<div class="form-group col-xs-12 floating-label-form-group controls">--%>
+                                            <%--<label>Beoordeling</label>--%>
+                                            <%--<input type="text" placeholder="beoordeling" name="beoordelingUpdate" required data-validation-required-message="beoordeling" value = ${post.beoordeling} size="40">--%>
+                                        <%--</div>--%>
+                                    <%--</div>--%>
+                                <%--</c:if>--%>
+                                <%--<c:if test="${user.isDocent() == 0}">--%>
+                                    <%--<div class="row control-group">--%>
+                                        <%--<div class="form-group col-xs-12 floating-label-form-group controls">--%>
+                                            <%--<label>Beoordeling</label>--%>
+                                            <%--<input type="text" placeholder="beoordeling" name="beoordelingUpdate" required data-validation-required-message="beoordeling" value = ${post.beoordeling} size="40" readonly>--%>
+                                        <%--</div>--%>
+                                    <%--</div>--%>
+                                <%--</c:if>--%>
+                            <%--</div>--%>
+                            <%--<div class="modal-footer">--%>
+                                <%--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>--%>
+                                <%--<button type="submit" class="btn btn-primary"  value="updatedeadline">Update Deadline</button>--%>
+                            <%--</div>--%>
+                        <%--</div>--%>
+                    <%--</div>--%>
+                <%--</div>--%>
+            <%--</div>--%>
+        <%--</c:forEach>--%>
+        <%--</form>--%>
+    <%--</div>--%>
 
-                naam = request.getParameter("naamUpdate");
-                URI = request.getParameter("URIUpdate");
-                if (request.getParameter("beoordelingUpdate") != null){
-                    beoordeling = Integer.parseInt(request.getParameter("beoordelingUpdate"));
-                }
-                else{
-                    beoordeling = 0;
-                }
-                beschrijving = request.getParameter("beschrijvingUpdate");
-
-                if (request.getParameter("datumUpdate") != null){
-                    datum = request.getParameter("datumUpdate");
-                    java.sql.Date sqlDate = java.sql.Date.valueOf(datum);
-                    Deadline deadline = new Deadline(naam, sqlDate, userSession.getK());
-                    deadline.setBeschrijving(beschrijving);
-                    deadline.setBeoordeling(beoordeling);
-                    deadline.setURI(URI);
-                    request.setAttribute("updateDeadline", dDAO.updateDeadline(deadline));
-                }
-            %>
-        <c:forEach var="post" items="${deadLinesThisWeek}" varStatus="vs">
-            <div class="post">
-                ${post.datum} - <b>${post.naam}</b>
-                <!-- Button trigger modal -->
-                <div class="button">
-                    <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal${vs.index}" id="viewDetailButton${vs.index}">
-                        Aanpassen
-                    </button>
-                </div>
-                <!-- Modal -->
-                <div class="modal fade" id="myModal${vs.index}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" id="myModal${vs.index}"`role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title" id="myModalLabel">${post.datum} - <b>${post.naam}</b></h4>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="row control-group">
-                                    <div class="form-group col-xs-12 floating-label-form-group controls">
-                                        <label>Datum</label>
-                                        <input type="text" placeholder="Datum" name="datumUpdate" required data-validation-required-message="Datum" value = "${post.datum}" size="40">
-                                    </div>
-                                </div>
-                                <div class="row control-group">
-                                    <div class="form-group col-xs-12 floating-label-form-group controls">
-                                        <label>Naam</label>
-                                        <input type="text" placeholder="Naam" name="naamUpdate" required data-validation-required-message="Naam" value = "${post.naam}" size="40">
-                                    </div>
-                                </div>
-                                <div class="row control-group">
-                                    <div class="form-group col-xs-12 floating-label-form-group controls">
-                                        <label>Beschrijving</label>
-                                        <textarea rows="4" cols="40" placeholder="Beschrijving" name="beschrijvingUpdate" required data-validation-required-message="Beschrijving">${post.beschrijving}</textarea>
-                                    </div>
-                                </div>
-                                <div class="row control-group">
-                                    <div class="form-group col-xs-12 floating-label-form-group controls">
-                                        <label>URI</label>
-                                        <input type="text" placeholder="URI" name="URIUpdate" required data-validation-required-message="URI" value = "${post.URI}" size="40">
-                                    </div>
-                                </div>
-                                <c:if test="${user.isDocent() == 1}">
-                                    <div class="row control-group">
-                                        <div class="form-group col-xs-12 floating-label-form-group controls">
-                                            <label>Beoordeling</label>
-                                            <input type="text" placeholder="beoordeling" name="beoordelingUpdate" required data-validation-required-message="beoordeling" value = ${post.beoordeling} size="40">
-                                        </div>
-                                    </div>
-                                </c:if>
-                                <c:if test="${user.isDocent() == 0}">
-                                    <div class="row control-group">
-                                        <div class="form-group col-xs-12 floating-label-form-group controls">
-                                            <label>Beoordeling</label>
-                                            <input type="text" placeholder="beoordeling" name="beoordelingUpdate" required data-validation-required-message="beoordeling" value = ${post.beoordeling} size="40" readonly>
-                                        </div>
-                                    </div>
-                                </c:if>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary" data-toggle="${updateDeadline}">Save changes</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </c:forEach>
-        </form>
-    </div>
 
 
 
@@ -332,6 +314,7 @@
 
 <!-- Custom Theme JavaScript -->
 <script src="../js/clean-blog.min.js"></script>
+
 
 </body>
 </html>

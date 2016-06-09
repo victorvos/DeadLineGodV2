@@ -11,21 +11,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 /**
- * Created by Eigenaar on 22-5-2016.
+ * Created by Eigenaar on 9-6-2016.
  */
-public class DeadlineServlet extends HttpServlet{
-    private String naam, beoordeling, beschrijving, URI;
-    private int ID;
+public class DeadlineUpdateServlet extends HttpServlet{
+    private String naam, beschrijving, URI;
+    private String beoordeling;
     private model.DeadlineDAO dDAO;
-    private model.Deadline deadline;
-    private java.sql.Date sqlDate;
 
-    public void init() throws ServletException{
+    public void init() throws ServletException {
         dDAO = new DeadlineDAO();
     }
 
@@ -40,19 +37,13 @@ public class DeadlineServlet extends HttpServlet{
         String startDateStr = request.getParameter("datum");
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         java.util.Date datum = null;
-
-        while(datum == null)
-        {
-            try
-            {
-                datum = (Date) sdf.parse(datum;
-            }
-            catch(ParseException e)
-            {
-                System.out.println("Please enter a valid date! Format is yyyy/mm/dd");
-            }
+        try {
+            datum = sdf.parse(startDateStr);
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
-        sqlDate = new java.sql.Date(datum.getTime());
+
+        java.sql.Date sqlDate = new java.sql.Date(datum.getTime());
 
         beoordeling = request.getParameter("beoordeling");
         beschrijving = request.getParameter("beschrijving");
@@ -67,7 +58,7 @@ public class DeadlineServlet extends HttpServlet{
             rd = request.getRequestDispatcher("index.jsp");
             request.setAttribute("message", "<font color=red>U bent nog niet ingelogd</font>");
             rd.include(request, response);
-        } else if (naam.isEmpty()||sqlDate == null) {
+        } else if (naam.isEmpty()||datum == null) {
             rd = request.getRequestDispatcher("/deadline/mydeadlines.jsp");
             request.setAttribute("message", "<font color=red>Vul alle velden in aub !</font>");
             rd.include(request, response);
@@ -82,10 +73,12 @@ public class DeadlineServlet extends HttpServlet{
             if (beoordeling != null) {
                 deadLine.setBeoordeling(beoordeling);
             }
-            dDAO.addDeadline(deadLine);
+//            deadLine.setID(dDAO.getID(userSession.getEmail()));
+            if (dDAO.findByID(deadLine.getID()) != null){
+                dDAO.updateDeadline(deadLine);
+            }
             rd = request.getRequestDispatcher("/deadline/mydeadlines.jsp");
             rd.forward(request, response);
         }
     }
 }
-
