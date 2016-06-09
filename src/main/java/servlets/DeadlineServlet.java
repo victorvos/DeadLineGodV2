@@ -18,7 +18,8 @@ import java.text.SimpleDateFormat;
  * Created by Eigenaar on 22-5-2016.
  */
 public class DeadlineServlet extends HttpServlet{
-    private String naam, beschrijving, URI, beoordeling;
+    private String naam, beschrijving, URI;
+    private int beoordeling;
     private model.DeadlineDAO d;
 
     public void init() throws ServletException{
@@ -43,7 +44,7 @@ public class DeadlineServlet extends HttpServlet{
 
         java.sql.Date sqlDate = new java.sql.Date(datum.getTime());
 
-        beoordeling = request.getParameter("beoordeling");
+        beoordeling = new Integer(request.getParameter("beoordeling"));
         beschrijving = request.getParameter("beschrijving");
 
         HttpSession session = request.getSession();
@@ -66,10 +67,10 @@ public class DeadlineServlet extends HttpServlet{
                 deadLine.setURI(URI);
             }
             if(!beschrijving.isEmpty()){
-                deadLine.setURI(beschrijving);
+                deadLine.setBeschrijving(beschrijving);
             }
-            if(!beoordeling.isEmpty()){
-                deadLine.setURI(beoordeling);
+            if(beoordeling > 0){
+                deadLine.setBeoordeling(beoordeling);
             }
             d.addDeadline(deadLine);
             rd = request.getRequestDispatcher("/deadline/mydeadlines.jsp");

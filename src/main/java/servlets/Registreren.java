@@ -34,7 +34,7 @@ public class Registreren extends HttpServlet {
         session.setAttribute("klassen", klassenDAO.findAll());
 
         tussenvoegsel = request.getParameter("tussenvoegsel");
-        isDocent = new Integer(request.getParameter("isDocent"));
+        isDocent = Integer.parseInt(request.getParameter("isDocent"));
         klasCode = request.getParameter("klasCode");
         klas = new Klas(klasCode);
         naam = request.getParameter("naam");

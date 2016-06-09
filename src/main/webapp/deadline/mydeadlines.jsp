@@ -190,6 +190,31 @@
         <form name="sentMessage" action="/deadline/mydeadlines.do" method="post">
             <br>
             <br>
+            <%
+                String naam, beschrijving, URI, datum;
+                int beoordeling;
+                dDAO = new DeadlineDAO();
+
+                naam = request.getParameter("naamUpdate");
+                URI = request.getParameter("URIUpdate");
+                if (request.getParameter("beoordelingUpdate") != null){
+                    beoordeling = Integer.parseInt(request.getParameter("beoordelingUpdate"));
+                }
+                else{
+                    beoordeling = 0;
+                }
+                beschrijving = request.getParameter("beschrijvingUpdate");
+
+                if (request.getParameter("datumUpdate") != null){
+                    datum = request.getParameter("datumUpdate");
+                    java.sql.Date sqlDate = java.sql.Date.valueOf(datum);
+                    Deadline deadline = new Deadline(naam, sqlDate, userSession.getK());
+                    deadline.setBeschrijving(beschrijving);
+                    deadline.setBeoordeling(beoordeling);
+                    deadline.setURI(URI);
+                    request.setAttribute("updateDeadline", dDAO.updateDeadline(deadline));
+                }
+            %>
         <c:forEach var="post" items="${deadLinesThisWeek}" varStatus="vs">
             <div class="post">
                 ${post.datum} - <b>${post.naam}</b>
@@ -213,32 +238,32 @@
                                 <div class="row control-group">
                                     <div class="form-group col-xs-12 floating-label-form-group controls">
                                         <label>Datum</label>
-                                        <input type="text" placeholder="Datum" name="datum" required data-validation-required-message="Datum" value = "${post.datum}" size="40">
+                                        <input type="text" placeholder="Datum" name="datumUpdate" required data-validation-required-message="Datum" value = "${post.datum}" size="40">
                                     </div>
                                 </div>
                                 <div class="row control-group">
                                     <div class="form-group col-xs-12 floating-label-form-group controls">
                                         <label>Naam</label>
-                                        <input type="text" placeholder="Naam" name="naam" required data-validation-required-message="Naam" value = "${post.naam}" size="40">
+                                        <input type="text" placeholder="Naam" name="naamUpdate" required data-validation-required-message="Naam" value = "${post.naam}" size="40">
                                     </div>
                                 </div>
                                 <div class="row control-group">
                                     <div class="form-group col-xs-12 floating-label-form-group controls">
                                         <label>Beschrijving</label>
-                                        <textarea rows="4" cols="40" placeholder="Beschrijving" name="beschrijving" required data-validation-required-message="Beschrijving">${post.beschrijving}</textarea>
+                                        <textarea rows="4" cols="40" placeholder="Beschrijving" name="beschrijvingUpdate" required data-validation-required-message="Beschrijving">${post.beschrijving}</textarea>
                                     </div>
                                 </div>
                                 <div class="row control-group">
                                     <div class="form-group col-xs-12 floating-label-form-group controls">
                                         <label>URI</label>
-                                        <input type="text" placeholder="URI" name="URI" required data-validation-required-message="URI" value = "${post.URI}" size="40">
+                                        <input type="text" placeholder="URI" name="URIUpdate" required data-validation-required-message="URI" value = "${post.URI}" size="40">
                                     </div>
                                 </div>
                                 <c:if test="${user.isDocent() == 1}">
                                     <div class="row control-group">
                                         <div class="form-group col-xs-12 floating-label-form-group controls">
                                             <label>Beoordeling</label>
-                                            <input type="text" placeholder="beoordeling" name="beoordeling" required data-validation-required-message="beoordeling" value = "${post.beoordeling}" size="40">
+                                            <input type="text" placeholder="beoordeling" name="beoordelingUpdate" required data-validation-required-message="beoordeling" value = ${post.beoordeling} size="40">
                                         </div>
                                     </div>
                                 </c:if>
@@ -246,14 +271,14 @@
                                     <div class="row control-group">
                                         <div class="form-group col-xs-12 floating-label-form-group controls">
                                             <label>Beoordeling</label>
-                                            <input type="text" placeholder="beoordeling" name="beoordeling" required data-validation-required-message="beoordeling" value = "${post.beoordeling}" size="40" readonly>
+                                            <input type="text" placeholder="beoordeling" name="beoordelingUpdate" required data-validation-required-message="beoordeling" value = ${post.beoordeling} size="40" readonly>
                                         </div>
                                     </div>
                                 </c:if>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
+                                <button type="button" class="btn btn-primary" data-toggle="${updateDeadline}">Save changes</button>
                             </div>
                         </div>
                     </div>
