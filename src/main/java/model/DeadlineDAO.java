@@ -25,7 +25,9 @@ public class DeadlineDAO extends BaseDAO {
                 String URI = dbResultSet.getString("URI");
                 String beoordeling = dbResultSet.getString("beoordeling");
                 Date datum = dbResultSet.getDate("datum");
-                Klas k = new Klas(dbResultSet.getString("klasCode"));
+                String klasCode = dbResultSet.getString("klasCode");
+
+                Klas k = new Klas(klasCode);
 
                 Deadline deadline = new Deadline(naam, datum, k);
                 deadline.setBeoordeling(beoordeling);
@@ -41,7 +43,8 @@ public class DeadlineDAO extends BaseDAO {
     }
 
 
-    public Deadline addDeadline(Deadline d) {
+    public boolean addDeadline(Deadline d) {
+        boolean ad = false;
         try (Connection con = super.getConnection()) {
             String URI = "", beschrijving = "";
             String beoordeling = "";
@@ -56,24 +59,24 @@ public class DeadlineDAO extends BaseDAO {
             if(d.getBeoordeling()!= null){
                 beoordeling = d.getBeoordeling();
             }
-            String k = d.getK().getKlasCode();
+            String klasCode = d.getK().getKlasCode();
             Date datum = d.getDatum();
 
-            PreparedStatement pstmt = con.prepareStatement("INSERT INTO deadline (naam,beschrijving,URI,beoordeling,datum,klas) VALUES(?,?,?,?,?,?,?)");
+            PreparedStatement pstmt = con.prepareStatement("INSERT INTO deadline (naam,beschrijving,URI,beoordeling,datum,klasCode) VALUES(?,?,?,?,?,?)");
             pstmt.setString(1, naam);
             pstmt.setString(2, beschrijving);
             pstmt.setString(3, URI);
-            pstmt.setString(4, naam);
-            pstmt.setString(5, beoordeling);
-            pstmt.setDate(6, datum);
-            pstmt.setString(7, k);
+            pstmt.setString(4, beoordeling);
+            pstmt.setDate(5, datum);
+            pstmt.setString(6, klasCode);
 
             pstmt.executeUpdate();
+            ad = true;
         } catch (SQLException sqle) {
             sqle.printStackTrace();
+            ad = false;
         }
-
-        return d;
+        return ad;
     }
 
     public Deadline updateDeadline(Deadline d) {
@@ -128,22 +131,22 @@ public class DeadlineDAO extends BaseDAO {
         return false;
     }
 
-    public List<Deadline> findAll(){
-        return selectDeadlines("select * from deadline");
-    }
+//    public List<Deadline> findAll(){
+//        return selectDeadlines("select * from deadline");
+//    }
 
 //    public List<Deadline> get10LargestPopulations() {
 //        return selectDeadlines("select * from deadlines order by population desc limit 10");
 //    }
 
     public boolean checkEmptyDeadlines(Klas k){
-        int numberOfDeadlinedWithKlas = selectDeadlines("SELECT * FROM deadline WHERE klas='"+k+"'").size();
+        int numberOfDeadlinedWithKlas = selectDeadlines("SELECT * FROM deadline WHERE klasCode='"+k.getKlasCode()+"'").size();
         return numberOfDeadlinedWithKlas != 0;
     }
 
     public List<Deadline> getDeadlinesThisWeekPerKlas(Klas k) {
         if (checkEmptyDeadlines(k)){
-            return selectDeadlines("SELECT * from deadline WHERE datum BETWEEN TRUNC(sysdate, 'DAY') and TRUNC(sysdate+6, 'DAY')-1  from dual and klasCode ='"+k+"')");
+            return selectDeadlines("SELECT * FROM deadline WHERE datum BETWEEN DATE_SUB(NOW(), INTERVAL 7 DAY) AND NOW() and klasCode='"+k.getKlasCode()+"' ORDER BY datum ASC");
         }
         else {
             return selectDeadlines("SELECT * from deadline");
@@ -152,7 +155,7 @@ public class DeadlineDAO extends BaseDAO {
 
     public List<Deadline> getDeadlinesThisMonthPerKlas(Klas k) {
         if (checkEmptyDeadlines(k)){
-            return selectDeadlines("SELECT * from deadline WHERE datum BETWEEN TRUNC(sysdate, 'MONTH') and TRUNC(sysdate+30, 'MONTH')-1  from dual and klasCode='"+k+"' ORDER BY datum ASC)");
+            return selectDeadlines("SELECT * FROM deadline WHERE datum BETWEEN DATE_SUB(NOW(), INTERVAL 30 DAY) AND NOW() and klasCode='"+k.getKlasCode()+"' ORDER BY datum ASC");
         }
         else {
             return selectDeadlines("SELECT * from deadline");
@@ -161,6 +164,17 @@ public class DeadlineDAO extends BaseDAO {
 
     public Deadline findByID(Integer ID) {
         return selectDeadlines("select * from deadline where ID = "+ ID + "").get(0);
+    }
+
+    public int findID(Deadline d) {
+        int numberOfDeadlinesWithID = selectDeadlines("SELECT ID FROM deadline WHERE naam='"+d.getNaam()+"' and beschrijving='"+d.getBeschrijving()+"' and klasCode='"+d.getK().getKlasCode()+"'").size();
+        if(numberOfDeadlinesWithID != 0){
+            Deadline x = selectDeadlines("SELECT ID FROM deadline WHERE naam='"+d.getNaam()+"' and beschrijving='"+d.getBeschrijving()+"' and klasCode='"+d.getK().getKlasCode()+"'").get(0);
+            int ID = x.getID();
+            return ID;
+        } else {
+            return 0;
+        }
     }
 
 //    public int getID(String email) {
