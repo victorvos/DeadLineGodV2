@@ -38,10 +38,9 @@
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-
     <![endif]-->
 
-  <title>MyDeadlines</title>
+  <title>My Deadlines</title>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js" ></script>
     <script type="text/javascript">
 
@@ -201,15 +200,13 @@
                 </div>
     </div>
 
-
-<input type="button" class="btn btn-primary"  id="hideshowDW" value="Deze Week">
-<div class="deadlineThisWeek" id="deadlineThisWeek" style="width:500px;
+<div class="button" style="width:400px; float:left; padding:20px;">
+    <input type="button" class="btn btn-primary"  id="hideshowDW" value="Deze Week">
+    <input type="button" class="btn btn-primary"  id="hideshowDM" value="Deze Maand">
+</div>
+<div class="deadlineThisWeek" id="deadlineThisWeek" style="width:250px;
             float:left;
             padding:20px;" >
-            <br>
-            <br>
-            <br>
-            <br>
         <c:forEach var="post" items="${deadLinesThisWeek}" varStatus="vs">
             <div class="post">
                 ${post.datum} - <b>${post.naam}</b>
@@ -283,93 +280,93 @@
                 </div>
             </div>
         </c:forEach>
-        </form>
-    </div>
+    </form>
+</div>
 
-<input type="button" class="btn btn-primary"  id="hideshowDM" value="Deze Maand">
-    <div class="deadlineThisMonth" id="deadlineThisMonth" style="width:500px;
-            float:left;
-            padding:20px;
-            display:none" >
-        <br>
-        <br>
-        <br>
-        <br>
-        <c:forEach var="post" items="${deadLinesThisMonth}" varStatus="vs">
-            <div class="post">
-                    ${post.datum} - <b>${post.naam}</b>
-                <!-- Button trigger modal -->
-                <div class="button">
-                    <button type="button" class="btn btn-xs" data-toggle="modal" data-target="#myModal${vs.index}" id="viewDetailButton${vs.index}">
-                        Aanpassen
-                    </button>
-                </div>
-                <!-- Modal -->
-                <div class="modal fade" id="myModal${vs.index}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" id="myModal${vs.index}"`role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title" id="myModalLabel">${post.datum} - <b>${post.naam}</b></h4>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
+<div class="deadlineThisMonth" id="deadlineThisMonth" style="width:250px;
+    float:left;
+    padding:20px;
+    display:none" >
+    <br>
+    <br>
+    <br>
+    <br>
+    <c:forEach var="post" items="${deadLinesThisMonth}" varStatus="vs">
+        <div class="post">
+        ${post.datum} - <b>${post.naam}</b>
+        <!-- Button trigger modal -->
+        <div class="button">
+            <button type="button" class="btn btn-xs" data-toggle="modal" data-target="#myModal${vs.index}" id="viewDetailButton${vs.index}">
+                Aanpassen
+            </button>
+            </div>
+            <!-- Modal -->
+            <div class="modal fade" id="myModal${vs.index}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog" id="myModal${vs.index}"`role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="myModalLabel">${post.datum} - <b>${post.naam}</b></h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row control-group">
+                                <div class="form-group col-xs-12 floating-label-form-group controls">
+                                    <label>Datum</label>
+                                    <input type="text" placeholder="Datum*" name="datumUpdate" value = "${post.datum}" size="40">
+                                </div>
                             </div>
-                            <div class="modal-body">
-                                <div class="row control-group">
-                                    <div class="form-group col-xs-12 floating-label-form-group controls">
-                                        <label>Datum</label>
-                                        <input type="text" placeholder="Datum*" name="datumUpdate" value = "${post.datum}" size="40">
-                                    </div>
+                            <div class="row control-group">
+                                <div class="form-group col-xs-12 floating-label-form-group controls">
+                                    <label>Naam</label>
+                                    <input type="text" placeholder="Naam*" name="naamUpdate" value = "${post.naam}" size="40">
                                 </div>
-                                <div class="row control-group">
-                                    <div class="form-group col-xs-12 floating-label-form-group controls">
-                                        <label>Naam</label>
-                                        <input type="text" placeholder="Naam*" name="naamUpdate" value = "${post.naam}" size="40">
-                                    </div>
-                                </div>
-                                <div class="row control-group">
-                                    <div class="form-group col-xs-12 floating-label-form-group controls">
-                                        <label>Beschrijving</label>
-                                        <textarea rows="4" cols="40" placeholder="Beschrijving" name="beschrijvingUpdate">${post.beschrijving}</textarea>
-                                    </div>
-                                </div>
-                                <div class="row control-group">
-                                    <div class="form-group col-xs-12 floating-label-form-group controls">
-                                        <label>URI</label>
-                                        <input type="text" placeholder="URI" name="URIUpdate" value = "${post.URI}" size="40">
-                                    </div>
-                                </div>
-                                <c:if test="${user.isDocent() == 1}">
-                                    <div class="row control-group">
-                                        <div class="form-group col-xs-12 floating-label-form-group controls">
-                                            <label>Beoordeling</label>
-                                            <input type="text" placeholder="beoordeling" name="beoordelingUpdate" value = "${post.beoordeling}" size="40">
-                                        </div>
-                                    </div>
-                                </c:if>
-                                <c:if test="${user.isDocent() == 0}">
-                                    <div class="row control-group">
-                                        <div class="form-group col-xs-12 floating-label-form-group controls">
-                                            <label>Beoordeling</label>
-                                            <input type="text" placeholder="beoordeling" name="beoordelingUpdate" value = "${post.beoordeling}" size="40" readonly>
-                                        </div>
-                                    </div>
-                                </c:if>
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <c:if test="${user.isDocent() == 1}">
-                                    <button type="submit" class="btn btn-primary"  name="deleteDeadline" value="${post.ID}">Delete</button>
-                                </c:if>
-                                <button type="submit" class="btn btn-primary"  name="updateDeadline" value="${post.ID}">Update</button>
+                            <div class="row control-group">
+                                <div class="form-group col-xs-12 floating-label-form-group controls">
+                                    <label>Beschrijving</label>
+                                    <textarea rows="4" cols="40" placeholder="Beschrijving" name="beschrijvingUpdate">${post.beschrijving}</textarea>
+                                </div>
                             </div>
+                            <div class="row control-group">
+                                <div class="form-group col-xs-12 floating-label-form-group controls">
+                                    <label>URI</label>
+                                    <input type="text" placeholder="URI" name="URIUpdate" value = "${post.URI}" size="40">
+                                </div>
+                            </div>
+                            <c:if test="${user.isDocent() == 1}">
+                                <div class="row control-group">
+                                    <div class="form-group col-xs-12 floating-label-form-group controls">
+                                        <label>Beoordeling</label>
+                                        <input type="text" placeholder="beoordeling" name="beoordelingUpdate" value = "${post.beoordeling}" size="40">
+                                    </div>
+                                </div>
+                            </c:if>
+                            <c:if test="${user.isDocent() == 0}">
+                                <div class="row control-group">
+                                    <div class="form-group col-xs-12 floating-label-form-group controls">
+                                        <label>Beoordeling</label>
+                                        <input type="text" placeholder="beoordeling" name="beoordelingUpdate" value = "${post.beoordeling}" size="40" readonly>
+                                    </div>
+                                </div>
+                            </c:if>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <c:if test="${user.isDocent() == 1}">
+                                <button type="submit" class="btn btn-primary"  name="deleteDeadline" value="${post.ID}">Delete</button>
+                            </c:if>
+                            <button type="submit" class="btn btn-primary"  name="updateDeadline" value="${post.ID}">Update</button>
                         </div>
                     </div>
                 </div>
             </div>
-        </c:forEach>
-        </form>
-    </div>
+        </div>
+    </c:forEach>
+</div>
+
+</form>
 
 
 
