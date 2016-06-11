@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -52,7 +51,7 @@ public class DeadlineServlet extends HttpServlet{
                 try {
                     datum = sdf.parse(startDateStr);
                 } catch (ParseException e) {
-                    System.out.println("Please enter a valid date! Format is yyyy/mm/dd");
+                    System.out.println("Voer een valide datum in aub (yyyy-MM-dd)");
                 }
             }
             sqlDate = new java.sql.Date(datum.getTime());
@@ -100,7 +99,7 @@ public class DeadlineServlet extends HttpServlet{
                 try {
                     datum = sdf.parse(startDateStr);
                 } catch (ParseException e) {
-                    System.out.println("Please enter a valid date! Format is yyyy/mm/dd");
+                    System.out.println("Voer een valide datum in aub (yyyy-MM-dd)");
                 }
             }
             sqlDate = new java.sql.Date(datum.getTime());
@@ -148,7 +147,7 @@ public class DeadlineServlet extends HttpServlet{
                 try {
                     datum = sdf.parse(startDateStr);
                 } catch (ParseException e) {
-                    System.out.println("Please enter a valid date! Format is yyyy/mm/dd");
+                    System.out.println("Voer een valide datum in aub (yyyy-MM-dd)");
                 }
             }
             sqlDate = new java.sql.Date(datum.getTime());
@@ -184,5 +183,3 @@ public class DeadlineServlet extends HttpServlet{
         }
     }
 }
-
-

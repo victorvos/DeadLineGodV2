@@ -146,15 +146,15 @@
 
                 <div>
                     <div class="form-group col-xs-12 floating-label-form-group controls">
-                        <label>Datum</label>
-                        <input type="text" placeholder="Datum" name="datum" value = "${date}" size="40">
+                        <label>Datum*</label>
+                        <input type="text" placeholder="Datum*" name="datum" value = "${date}" size="40">
                     </div>
                 </div>
 
                 <div>
                     <div class="form-group col-xs-12 floating-label-form-group controls">
-                        <label>Naam</label>
-                        <input type="text" placeholder="Naam" name="naam" value = "" size="40">
+                        <label>Naam*</label>
+                        <input type="text" placeholder="Naam*" name="naam" value = "" size="40">
                     </div>
                 </div>
 
@@ -202,7 +202,7 @@
     </div>
 
 
-<input type="button" class="btn btn-primary"  id="hideshowDW" value="Per Week">
+<input type="button" class="btn btn-primary"  id="hideshowDW" value="Deze Week">
 <div class="deadlineThisWeek" id="deadlineThisWeek" style="width:500px;
             float:left;
             padding:20px;" >
@@ -233,13 +233,13 @@
                                 <div class="row control-group">
                                     <div class="form-group col-xs-12 floating-label-form-group controls">
                                         <label>Datum</label>
-                                        <input type="text" placeholder="Datum" name="datumUpdate" value = "${post.datum}" size="40">
+                                        <input type="text" placeholder="Datum*" name="datumUpdate" value = "${post.datum}" size="40">
                                     </div>
                                 </div>
                                 <div class="row control-group">
                                     <div class="form-group col-xs-12 floating-label-form-group controls">
                                         <label>Naam</label>
-                                        <input type="text" placeholder="Naam" name="naamUpdate" value = "${post.naam}" size="40">
+                                        <input type="text" placeholder="Naam*" name="naamUpdate" value = "${post.naam}" size="40">
                                     </div>
                                 </div>
                                 <div class="row control-group">
@@ -286,7 +286,7 @@
         </form>
     </div>
 
-<input type="button" class="btn btn-primary"  id="hideshowDM" value="Per Maand">
+<input type="button" class="btn btn-primary"  id="hideshowDM" value="Deze Maand">
     <div class="deadlineThisMonth" id="deadlineThisMonth" style="width:500px;
             float:left;
             padding:20px;
@@ -318,13 +318,13 @@
                                 <div class="row control-group">
                                     <div class="form-group col-xs-12 floating-label-form-group controls">
                                         <label>Datum</label>
-                                        <input type="text" placeholder="Datum" name="datumUpdate" value = "${post.datum}" size="40">
+                                        <input type="text" placeholder="Datum*" name="datumUpdate" value = "${post.datum}" size="40">
                                     </div>
                                 </div>
                                 <div class="row control-group">
                                     <div class="form-group col-xs-12 floating-label-form-group controls">
                                         <label>Naam</label>
-                                        <input type="text" placeholder="Naam" name="naamUpdate" value = "${post.naam}" size="40">
+                                        <input type="text" placeholder="Naam*" name="naamUpdate" value = "${post.naam}" size="40">
                                     </div>
                                 </div>
                                 <div class="row control-group">
