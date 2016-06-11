@@ -64,7 +64,7 @@ public class DeadlineServlet extends HttpServlet{
                 rd = request.getRequestDispatcher("index.jsp");
                 request.setAttribute("message", "<font color=red>U bent nog niet ingelogd</font>");
                 rd.include(request, response);
-            } else if (naam.equals("") | sqlDate.equals("")) {
+            } else if (naam.equals("") | sqlDate.equals("")|| (Integer.parseInt(beoordeling) > 10))  {
                 rd = request.getRequestDispatcher("/deadline/mydeadlines.jsp");
                 request.setAttribute("message", "<font color=red>Vul alle verplichte velden in aub !</font>");
                 rd.include(request, response);
