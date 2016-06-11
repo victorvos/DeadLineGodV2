@@ -157,7 +157,7 @@ public class DeadlineDAO extends BaseDAO {
 
     public List<Deadline> getDeadlinesThisMonthPerKlas(Klas k) {
         if (checkEmptyDeadlines(k)){
-            return selectDeadlines("SELECT * FROM deadline WHERE MONTH(date_entered) = MONTH(CURDATE()) and klasCode='"+k.getKlasCode()+"' ORDER BY datum ASC");
+            return selectDeadlines("SELECT * FROM deadline WHERE MONTH(datum) = MONTH(CURDATE()) and klasCode='"+k.getKlasCode()+"' ORDER BY datum ASC");
         }
         else {
             return selectDeadlines("SELECT * from deadline");

@@ -23,6 +23,8 @@ $(document).ready(function() {
         });
     });
 
+    
+    
     $("#populations").click(function () {
         $.get("restservices/countries/largestpopulations", function(data) {
             $("#populations").append(data);
