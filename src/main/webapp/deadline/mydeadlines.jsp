@@ -119,7 +119,7 @@
                 %>
 
                 <%!
-                    DateFormat tipe = new SimpleDateFormat("dd-MM-yyyy");
+                    DateFormat tipe = new SimpleDateFormat("yyyy-MM-dd");
                     Calendar cal = Calendar.getInstance();
                 %>
                 <%
@@ -146,7 +146,7 @@
                 <div>
                     <div class="form-group col-xs-12 floating-label-form-group controls">
                         <label>Beschrijving</label>
-                        <textarea rows="4" cols="40" placeholder="Beschrijving" name="beschrijving" value = "">${post.beschrijving}</textarea>
+                        <textarea rows="4" cols="40" placeholder="Beschrijving" name="beschrijving" value = ""></textarea>
                     </div>
                 </div>
 
@@ -182,7 +182,7 @@
                     <%--<div class="form-group col-xs-12 floating-label-form-group controls">></div>--%>
                 <%--</div>--%>
                 <div class="form-group col-xs-12">
-                    <button type="submit" class="btn btn-primary"  name="action" value="makeDeadline">Maak Deadline</button>
+                    <button type="submit" class="btn btn-primary"  name="makeDeadline" value="">Maak Deadline</button>
                 </div>
     </div>
 
@@ -257,7 +257,10 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary"  name="action" value="updatedeadline">Update Deadline</button>
+                                <c:if test="${user.isDocent() == 1}">
+                                <button type="submit" class="btn btn-primary"  name="deleteDeadline" value="${post.ID}">Delete</button>
+                                </c:if>
+                                <button type="submit" class="btn btn-primary"  name="updateDeadline" value="${post.ID}">Update</button>
                             </div>
                         </div>
                     </div>

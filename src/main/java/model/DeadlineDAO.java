@@ -79,7 +79,8 @@ public class DeadlineDAO extends BaseDAO {
         return ad;
     }
 
-    public Deadline updateDeadline(Deadline d) {
+    public boolean updateDeadline(Deadline d) {
+        boolean ud = false;
 
         try(Connection con = super.getConnection()) {
 
@@ -96,11 +97,10 @@ public class DeadlineDAO extends BaseDAO {
             if(d.getBeoordeling()!=null){
                 beoordeling = d.getBeoordeling();
             }
-            String k = d.getK().getKlasCode();
             Date datum = d.getDatum();
             int ID = d.getID();
 
-            PreparedStatement pstmt = con.prepareStatement("UPDATE deadline SET naam= ?, beschrijving = ?, URI= ?, beoordeling = ?, datum = ? WHERE ID = ?)");
+            PreparedStatement pstmt = con.prepareStatement("UPDATE deadline SET naam= ?, beschrijving = ?, URI= ?, beoordeling = ?, datum = ? WHERE ID = ?");
 
             pstmt.setString(1, naam);
             pstmt.setString(2, beschrijving);
@@ -110,8 +110,10 @@ public class DeadlineDAO extends BaseDAO {
             pstmt.setInt(6, ID);
 
             pstmt.executeUpdate();
-        }catch (SQLException sqle) { sqle.printStackTrace(); }
-        return d;
+            ud = true;
+        }catch (SQLException sqle) { sqle.printStackTrace();
+        ud = false;}
+        return ud;
     }
 
     public boolean delete(Deadline d) {
@@ -146,7 +148,7 @@ public class DeadlineDAO extends BaseDAO {
 
     public List<Deadline> getDeadlinesThisWeekPerKlas(Klas k) {
         if (checkEmptyDeadlines(k)){
-            return selectDeadlines("SELECT * FROM deadline WHERE datum BETWEEN DATE_SUB(NOW(), INTERVAL 7 DAY) AND NOW() and klasCode='"+k.getKlasCode()+"' ORDER BY datum ASC");
+            return selectDeadlines("SELECT * FROM deadline WHERE YEARWEEK(`datum`, 1) = YEARWEEK(CURDATE(), 1) and klasCode='"+k.getKlasCode()+"' ORDER BY datum ASC");
         }
         else {
             return selectDeadlines("SELECT * from deadline");
@@ -155,15 +157,16 @@ public class DeadlineDAO extends BaseDAO {
 
     public List<Deadline> getDeadlinesThisMonthPerKlas(Klas k) {
         if (checkEmptyDeadlines(k)){
-            return selectDeadlines("SELECT * FROM deadline WHERE datum BETWEEN DATE_SUB(NOW(), INTERVAL 30 DAY) AND NOW() and klasCode='"+k.getKlasCode()+"' ORDER BY datum ASC");
+            return selectDeadlines("SELECT * FROM deadline WHERE MONTH(date_entered) = MONTH(CURDATE()) and klasCode='"+k.getKlasCode()+"' ORDER BY datum ASC");
         }
         else {
             return selectDeadlines("SELECT * from deadline");
         }
     }
 
-    public Deadline findByID(Integer ID) {
-        return selectDeadlines("select * from deadline where ID = "+ ID + "").get(0);
+    public boolean findByID(Integer ID) {
+        int numberOfDeadlinesWithID = selectDeadlines("select * from deadline where ID = '"+ID+"'").size();
+        return numberOfDeadlinesWithID != 0;
     }
 
     public int findID(Deadline d) {

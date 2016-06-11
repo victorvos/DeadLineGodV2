@@ -31,7 +31,6 @@ public class DeadlineServlet extends HttpServlet{
 
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String action = request.getParameter("action");
 
         HttpSession session = request.getSession();
 
@@ -39,14 +38,14 @@ public class DeadlineServlet extends HttpServlet{
 
         User userSession = (User) session.getAttribute("loggedUser");
 
-        if ("makeDeadline".equals(action)) {
+        if (request.getParameter("makeDeadline")!=null) {
             naam = request.getParameter("naam");
             beschrijving = request.getParameter("beschrijving");
             URI = request.getParameter("URI");
 
 
             String startDateStr = request.getParameter("datum");
-            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             java.util.Date datum = null;
 
             while (datum == null) {
@@ -84,16 +83,17 @@ public class DeadlineServlet extends HttpServlet{
                 while(dDAO.findID(deadLine)==0){
                     deadLine.setID(dDAO.findID(deadLine));
                 }
+                rd = request.getRequestDispatcher("/deadline/mydeadlines.jsp");
+                rd.forward(request, response);
             }
-        } else if ("updateDeadline".equals(action)) {
+        } else if (request.getParameter("updateDeadline")!=null) {
 
             naam = request.getParameter("naamUpdate");
             beschrijving = request.getParameter("beschrijvingUpdate");
             URI = request.getParameter("URIUpdate");
 
-
             String startDateStr = request.getParameter("datumUpdate");
-            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             java.util.Date datum = null;
 
             while (datum == null) {
@@ -106,15 +106,14 @@ public class DeadlineServlet extends HttpServlet{
             sqlDate = new java.sql.Date(datum.getTime());
 
             beoordeling = request.getParameter("beoordelingUpdate");
-            beschrijving = request.getParameter("beschrijvingUpdate");
 
             if (userSession == null) {
                 rd = request.getRequestDispatcher("index.jsp");
                 request.setAttribute("message", "<font color=red>U bent nog niet ingelogd</font>");
                 rd.include(request, response);
-            } else if (naam.equals("") | sqlDate.equals("") || !(Integer.parseInt(beoordeling) > 10)) {
+            } else if (naam.equals("") | sqlDate.equals("") || (Integer.parseInt(beoordeling) > 10)) {
                 rd = request.getRequestDispatcher("/deadline/mydeadlines.jsp");
-                request.setAttribute("message", "<font color=red>Vul alle velden in aub !</font>");
+                request.setAttribute("message", "<font color=red>Vul alle velden in aub volgens criteria !</font>");
                 rd.include(request, response);
             } else {
                 Deadline deadLine = new Deadline(naam, sqlDate, userSession.getK());
@@ -127,13 +126,62 @@ public class DeadlineServlet extends HttpServlet{
                 if (beoordeling != null) {
                     deadLine.setBeoordeling(beoordeling);
                 }
-                if (dDAO.findByID(deadLine.getID()) != null) {
+                if (dDAO.findID(deadLine)!=0) {
+                    deadLine.setID(dDAO.findID(deadLine));
                     dDAO.updateDeadline(deadLine);
                 }
+                rd = request.getRequestDispatcher("/deadline/mydeadlines.jsp");
+                rd.forward(request, response);
             }
         }
-        rd = request.getRequestDispatcher("/deadline/mydeadlines.jsp");
-        rd.forward(request, response);
+        else if (request.getParameter("deleteDeadline")!=null) {
+
+            naam = request.getParameter("naamUpdate");
+            beschrijving = request.getParameter("beschrijvingUpdate");
+            URI = request.getParameter("URIUpdate");
+
+            String startDateStr = request.getParameter("datumUpdate");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            java.util.Date datum = null;
+
+            while (datum == null) {
+                try {
+                    datum = sdf.parse(startDateStr);
+                } catch (ParseException e) {
+                    System.out.println("Please enter a valid date! Format is yyyy/mm/dd");
+                }
+            }
+            sqlDate = new java.sql.Date(datum.getTime());
+
+            beoordeling = request.getParameter("beoordelingUpdate");
+
+            if (userSession == null) {
+                rd = request.getRequestDispatcher("index.jsp");
+                request.setAttribute("message", "<font color=red>U bent nog niet ingelogd</font>");
+                rd.include(request, response);
+            } else if (naam.equals("") | sqlDate.equals("") || (Integer.parseInt(beoordeling) > 10)) {
+                rd = request.getRequestDispatcher("/deadline/mydeadlines.jsp");
+                request.setAttribute("message", "<font color=red>Vul alle velden in aub volgens criteria !</font>");
+                rd.include(request, response);
+            } else {
+                Deadline deadLine = new Deadline(naam, sqlDate, userSession.getK());
+                if (!URI.isEmpty()) {
+                    deadLine.setURI(URI);
+                }
+                if (!beschrijving.isEmpty()) {
+                    deadLine.setBeschrijving(beschrijving);
+                }
+                if (beoordeling != null) {
+                    deadLine.setBeoordeling(beoordeling);
+                }
+                if (dDAO.findID(deadLine)!=0) {
+                    deadLine.setID(dDAO.findID(deadLine));
+                    dDAO.delete(deadLine);
+                }
+                rd = request.getRequestDispatcher("/deadline/mydeadlines.jsp");
+                rd.forward(request, response);
+            }
+        }
     }
 }
 
