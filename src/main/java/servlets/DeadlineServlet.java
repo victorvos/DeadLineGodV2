@@ -96,6 +96,8 @@ public class DeadlineServlet extends HttpServlet{
                 rd.forward(request, response);
             }
         } else if (request.getParameter("updateDeadline")!=null) {
+            String IDParameter = request.getParameter("updateDeadline");
+            ID = Integer.parseInt(IDParameter);
 
             naam = request.getParameter("naamUpdate");
             beschrijving = request.getParameter("beschrijvingUpdate");
@@ -145,8 +147,8 @@ public class DeadlineServlet extends HttpServlet{
                 if (beoordeling != null) {
                     deadLine.setBeoordeling(beoordeling);
                 }
-                if (dDAO.findID(deadLine)!=0) {
-                    deadLine.setID(dDAO.findID(deadLine));
+                if (dDAO.findByID(ID)) {
+                    deadLine.setID(ID);
                     dDAO.updateDeadline(deadLine);
                 }
                 rd = request.getRequestDispatcher("/deadline/mydeadlines.jsp");
@@ -154,6 +156,8 @@ public class DeadlineServlet extends HttpServlet{
             }
         }
         else if (request.getParameter("deleteDeadline")!=null) {
+            String IDParameter = request.getParameter("deleteDeadline");
+            ID = Integer.parseInt(IDParameter);
 
             naam = request.getParameter("naamUpdate");
             beschrijving = request.getParameter("beschrijvingUpdate");
@@ -203,8 +207,8 @@ public class DeadlineServlet extends HttpServlet{
                 if (beoordeling != null) {
                     deadLine.setBeoordeling(beoordeling);
                 }
-                if (dDAO.findID(deadLine)!=0) {
-                    deadLine.setID(dDAO.findID(deadLine));
+                if (dDAO.findByID(ID)) {
+                    deadLine.setID(ID);
                     dDAO.delete(deadLine);
                 }
                 rd = request.getRequestDispatcher("/deadline/mydeadlines.jsp");

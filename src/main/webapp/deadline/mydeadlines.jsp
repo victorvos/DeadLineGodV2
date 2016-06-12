@@ -222,13 +222,13 @@
                                 <%--<div class="row control-group">--%>
                                     <%--<div class="form-group col-xs-12 floating-label-form-group controls">--%>
                                         <%--<label>Datum</label>--%>
-                                        <%--<input type="text" placeholder="Datum*" name="datumUpdate" value = "${post.datum}" size="40">--%>
+                                        <%--<input type="text" placeholder="Datum*" name="datumUpdate" value = "${post.datum}" size="40" readonly>--%>
                                     <%--</div>--%>
                                 <%--</div>--%>
                                 <%--<div class="row control-group">--%>
                                     <%--<div class="form-group col-xs-12 floating-label-form-group controls">--%>
                                         <%--<label>Naam</label>--%>
-                                        <%--<input type="text" placeholder="Naam*" name="naamUpdate" value = "${post.naam}" size="40">--%>
+                                        <%--<input type="text" placeholder="Naam*" name="naamUpdate" value = "${post.naam}" size="40" readonly>--%>
                                     <%--</div>--%>
                                 <%--</div>--%>
                                 <%--<div class="row control-group">--%>
@@ -302,13 +302,13 @@
                             <div class="row control-group">
                                 <div class="form-group col-xs-12 floating-label-form-group controls">
                                     <label>Datum</label>
-                                    <input type="text" placeholder="Datum*" name="datumUpdate" value = "${post.datum}" size="40">
+                                    <input type="text" placeholder="Datum*" name="datumUpdate" value = "${post.datum}" size="40" readonly>
                                 </div>
                             </div>
                             <div class="row control-group">
                                 <div class="form-group col-xs-12 floating-label-form-group controls">
                                     <label>Naam</label>
-                                    <input type="text" placeholder="Naam*" name="naamUpdate" value = "${post.naam}" size="40">
+                                    <input type="text" placeholder="Naam*" name="naamUpdate" value = "${post.naam}" size="40" readonly>
                                 </div>
                             </div>
                             <div class="row control-group">

@@ -181,9 +181,9 @@ public class DeadlineDAO extends BaseDAO {
     }
 
     public int findID(Deadline d) {
-        int numberOfDeadlinesWithID = selectDeadlines("SELECT * FROM deadline WHERE naam='"+d.getNaam()+"' and klasCode='"+d.getK().getKlasCode()+"'").size();
+        int numberOfDeadlinesWithID = selectDeadlines("SELECT * FROM deadline WHERE naam='"+d.getNaam()+"' and datum='"+d.getDatum()+"' and klasCode='"+d.getK().getKlasCode()+"'").size();
         if(numberOfDeadlinesWithID != 0){
-            Deadline x = selectDeadlines("SELECT * FROM deadline WHERE naam='"+d.getNaam()+"' and klasCode='"+d.getK().getKlasCode()+"'").get(0);
+            Deadline x = selectDeadlines("SELECT * FROM deadline WHERE naam='"+d.getNaam()+"' and datum='"+d.getDatum()+"' and klasCode='"+d.getK().getKlasCode()+"'").get(0);
             int ID = x.getID();
             return ID;
         } else {
