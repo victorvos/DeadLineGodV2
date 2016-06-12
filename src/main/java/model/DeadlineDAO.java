@@ -43,8 +43,8 @@ public class DeadlineDAO extends BaseDAO {
     }
 
 
-    public boolean addDeadline(Deadline d) {
-        boolean ad = false;
+    public int addDeadline(Deadline d) {
+        int generatedkey=0;
         try (Connection con = super.getConnection()) {
             String URI, beschrijving;
             String beoordeling;
@@ -68,7 +68,9 @@ public class DeadlineDAO extends BaseDAO {
             String klasCode = d.getK().getKlasCode();
             Date datum = d.getDatum();
 
-            PreparedStatement pstmt = con.prepareStatement("INSERT INTO deadline (naam,beschrijving,URI,beoordeling,datum,klasCode) VALUES(?,?,?,?,?,?)");
+            String SQL = "INSERT INTO deadline (naam,beschrijving,URI,beoordeling,datum,klasCode) VALUES(?,?,?,?,?,?)";
+
+            PreparedStatement pstmt = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
             pstmt.setString(1, naam);
             pstmt.setString(2, beschrijving);
             pstmt.setString(3, URI);
@@ -77,12 +79,14 @@ public class DeadlineDAO extends BaseDAO {
             pstmt.setString(6, klasCode);
 
             pstmt.executeUpdate();
-            ad = true;
+            ResultSet rs = pstmt.getGeneratedKeys();
+            if(rs.next()) {
+                generatedkey = rs.getInt(1);
+            }
         } catch (SQLException sqle) {
             sqle.printStackTrace();
-            ad = false;
         }
-        return ad;
+        return generatedkey;
     }
 
     public boolean updateDeadline(Deadline d) {
@@ -144,14 +148,6 @@ public class DeadlineDAO extends BaseDAO {
         return false;
     }
 
-//    public List<Deadline> findAll(){
-//        return selectDeadlines("select * from deadline");
-//    }
-
-//    public List<Deadline> get10LargestPopulations() {
-//        return selectDeadlines("select * from deadlines order by population desc limit 10");
-//    }
-
     public boolean checkEmptyDeadlines(Klas k){
         int numberOfDeadlinedWithKlas = selectDeadlines("SELECT * FROM deadline WHERE klasCode='"+k.getKlasCode()+"'").size();
         return numberOfDeadlinedWithKlas != 0;
@@ -180,19 +176,27 @@ public class DeadlineDAO extends BaseDAO {
         return numberOfDeadlinesWithID != 0;
     }
 
-    public int findID(Deadline d) {
-        int numberOfDeadlinesWithID = selectDeadlines("SELECT * FROM deadline WHERE naam='"+d.getNaam()+"' and datum='"+d.getDatum()+"' and klasCode='"+d.getK().getKlasCode()+"'").size();
-        if(numberOfDeadlinesWithID != 0){
-            Deadline x = selectDeadlines("SELECT * FROM deadline WHERE naam='"+d.getNaam()+"' and datum='"+d.getDatum()+"' and klasCode='"+d.getK().getKlasCode()+"'").get(0);
-            int ID = x.getID();
-            return ID;
-        } else {
-            return 0;
-        }
-    }
+//    public int findID(Deadline d) {
+//        int numberOfDeadlinesWithID = selectDeadlines("SELECT * FROM deadline WHERE naam='"+d.getNaam()+"' and datum='"+d.getDatum()+"' and klasCode='"+d.getK().getKlasCode()+"'").size();
+//        if(numberOfDeadlinesWithID != 0){
+//            Deadline x = selectDeadlines("SELECT * FROM deadline WHERE naam='"+d.getNaam()+"' and datum='"+d.getDatum()+"' and klasCode='"+d.getK().getKlasCode()+"'").get(0);
+//            int ID = x.getID();
+//            return ID;
+//        } else {
+//            return 0;
+//        }
+//    }
 
 //    public int getID(String email) {
 //        return Integer.parseInt(String.valueOf(selectDeadlines("select ID from deadline where email = "+ email + "").get(0)));
+//    }
+
+    //    public List<Deadline> findAll(){
+//        return selectDeadlines("select * from deadline");
+//    }
+
+//    public List<Deadline> get10LargestPopulations() {
+//        return selectDeadlines("select * from deadlines order by population desc limit 10");
 //    }
 
 }

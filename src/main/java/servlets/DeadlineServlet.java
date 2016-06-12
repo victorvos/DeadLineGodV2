@@ -28,6 +28,20 @@ public class DeadlineServlet extends HttpServlet{
         dDAO = new DeadlineDAO();
     }
 
+    public void messageBeoordeling(String beoordeling, HttpServletRequest request){
+        if (!beoordeling.equals("")){
+            if(Integer.parseInt(beoordeling) > 10  || Integer.parseInt(beoordeling) < 0){
+                request.setAttribute("message", "<font color=red>Vul alle verplichte velden in aub en een beoordeling Cijfer 1-10!</font>");
+            }
+            else{
+                request.setAttribute("message", "<font color=red>Vul alle verplichte velden in aub !</font>");
+            }
+        }
+        else{
+            request.setAttribute("message", "<font color=red>Vul alle verplichte velden in aub !</font>");
+        }
+    }
+
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -64,17 +78,7 @@ public class DeadlineServlet extends HttpServlet{
                 request.setAttribute("message", "<font color=red>U bent nog niet ingelogd</font>");
                 rd.include(request, response);
             } else if (naam.equals("") | sqlDate.equals(""))  {
-                if (!beoordeling.equals("")){
-                    if(Integer.parseInt(beoordeling) > 10  || Integer.parseInt(beoordeling) < 0){
-                        request.setAttribute("message", "<font color=red>Vul alle verplichte velden in aub en een beoordeling Cijfer 1-10!</font>");
-                    }
-                    else{
-                        request.setAttribute("message", "<font color=red>Vul alle verplichte velden in aub !</font>");
-                    }
-                }
-                else{
-                    request.setAttribute("message", "<font color=red>Vul alle verplichte velden in aub !</font>");
-                }
+               messageBeoordeling(beoordeling, request);
                 rd = request.getRequestDispatcher("/deadline/mydeadlines.jsp");
                 rd.include(request, response);
             } else {
@@ -88,10 +92,9 @@ public class DeadlineServlet extends HttpServlet{
                 if (beoordeling != null) {
                     deadLine.setBeoordeling(beoordeling);
                 }
-                dDAO.addDeadline(deadLine);
-                while(dDAO.findID(deadLine)==0){
-                    deadLine.setID(dDAO.findID(deadLine));
-                }
+                ID = dDAO.addDeadline(deadLine);
+                deadLine.setID(ID);
+
                 rd = request.getRequestDispatcher("/deadline/mydeadlines.jsp");
                 rd.forward(request, response);
             }
@@ -123,17 +126,7 @@ public class DeadlineServlet extends HttpServlet{
                 request.setAttribute("message", "<font color=red>U bent nog niet ingelogd</font>");
                 rd.include(request, response);
             } else if (naam.equals("") | sqlDate.equals("")) {
-                if (!beoordeling.equals("")){
-                    if(Integer.parseInt(beoordeling) >  10 || Integer.parseInt(beoordeling) < 0){
-                        request.setAttribute("message", "<font color=red>Vul alle verplichte velden in aub en een beoordeling Cijfer 1-10!</font>");
-                    }
-                    else{
-                        request.setAttribute("message", "<font color=red>Vul alle verplichte velden in aub !</font>");
-                    }
-                }
-                else{
-                    request.setAttribute("message", "<font color=red>Vul alle verplichte velden in aub !</font>");
-                }
+                messageBeoordeling(beoordeling, request);
                 rd = request.getRequestDispatcher("/deadline/mydeadlines.jsp");
                 rd.include(request, response);
             } else {
@@ -183,17 +176,7 @@ public class DeadlineServlet extends HttpServlet{
                 request.setAttribute("message", "<font color=red>U bent nog niet ingelogd</font>");
                 rd.include(request, response);
             } else if (naam.equals("") | sqlDate.equals("")) {
-                if (!beoordeling.equals("")){
-                    if(Integer.parseInt(beoordeling) > 10 || Integer.parseInt(beoordeling) < 0){
-                        request.setAttribute("message", "<font color=red>Vul alle verplichte velden in aub en een beoordeling Cijfer 1-10!</font>");
-                    }
-                    else{
-                        request.setAttribute("message", "<font color=red>Vul alle verplichte velden in aub !</font>");
-                    }
-                }
-                else{
-                    request.setAttribute("message", "<font color=red>Vul alle verplichte velden in aub !</font>");
-                }
+                messageBeoordeling(beoordeling, request);
                 rd = request.getRequestDispatcher("/deadline/mydeadlines.jsp");
                 rd.include(request, response);
             } else {
