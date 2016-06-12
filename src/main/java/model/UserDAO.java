@@ -27,7 +27,7 @@ public class UserDAO extends BaseDAO {
                 Klas k = new Klas(dbResultSet.getString("klasCode"));
 
                 User u = new User(password, email, naam, achternaam, isDocent, k);
-                if(!tussenvoegsel.equals(null)){
+                if(tussenvoegsel!=null){
                     u.setTussenvoegsel(tussenvoegsel);
                 }
                 userList.add(u);
@@ -89,15 +89,15 @@ public class UserDAO extends BaseDAO {
         return user;
     }
 
-    public User getUser(String email, String password){
-        if(findByEmail(email)){
-            User user = selectUsers("SELECT * FROM user WHERE email='"+email+"' and password='"+password+"'").get(0);
-            return user;
-        }
-        else{
-            return null;
-        }
-    }
+//    public User getUser(String email, String password){
+//        if(findByEmail(email)){
+//            User user = selectUsers("SELECT * FROM user WHERE email='"+email+"' and password='"+password+"'").get(0);
+//            return user;
+//        }
+//        else{
+//            return null;
+//        }
+//    }
 
 //    public User updateUser(User u) {
 //
