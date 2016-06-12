@@ -66,7 +66,7 @@ public class DeadlineServlet extends HttpServlet{
             } else if (naam.equals("") | sqlDate.equals(""))  {
                 if (!beoordeling.equals("")){
                     if(Integer.parseInt(beoordeling) > 10  || Integer.parseInt(beoordeling) < 0){
-                        request.setAttribute("message", "<font color=red>Vul alle verplichte velden in aub en een beeordeling Cijfer 1-10!</font>");
+                        request.setAttribute("message", "<font color=red>Vul alle verplichte velden in aub en een beoordeling Cijfer 1-10!</font>");
                     }
                     else{
                         request.setAttribute("message", "<font color=red>Vul alle verplichte velden in aub !</font>");
@@ -125,7 +125,7 @@ public class DeadlineServlet extends HttpServlet{
             } else if (naam.equals("") | sqlDate.equals("")) {
                 if (!beoordeling.equals("")){
                     if(Integer.parseInt(beoordeling) >  10 || Integer.parseInt(beoordeling) < 0){
-                        request.setAttribute("message", "<font color=red>Vul alle verplichte velden in aub en een beeordeling Cijfer 1-10!</font>");
+                        request.setAttribute("message", "<font color=red>Vul alle verplichte velden in aub en een beoordeling Cijfer 1-10!</font>");
                     }
                     else{
                         request.setAttribute("message", "<font color=red>Vul alle verplichte velden in aub !</font>");
@@ -185,7 +185,7 @@ public class DeadlineServlet extends HttpServlet{
             } else if (naam.equals("") | sqlDate.equals("")) {
                 if (!beoordeling.equals("")){
                     if(Integer.parseInt(beoordeling) > 10 || Integer.parseInt(beoordeling) < 0){
-                        request.setAttribute("message", "<font color=red>Vul alle verplichte velden in aub en een beeordeling Cijfer 1-10!</font>");
+                        request.setAttribute("message", "<font color=red>Vul alle verplichte velden in aub en een beoordeling Cijfer 1-10!</font>");
                     }
                     else{
                         request.setAttribute("message", "<font color=red>Vul alle verplichte velden in aub !</font>");
