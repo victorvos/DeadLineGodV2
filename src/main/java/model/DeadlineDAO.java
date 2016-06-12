@@ -46,19 +46,25 @@ public class DeadlineDAO extends BaseDAO {
     public boolean addDeadline(Deadline d) {
         boolean ad = false;
         try (Connection con = super.getConnection()) {
-            String URI = "", beschrijving = "";
-            String beoordeling = "";
+            String URI, beschrijving;
+            String beoordeling;
 
             String naam = d.getNaam();
-            if(!d.getURI().equals(null)){
+            if (d.getURI() == null || d.getURI().equals(""))
+            {
+                URI = "";
+            }
+            else{
                 URI = d.getURI();
             }
-            if(!d.getBeschrijving().equals(null)){
+            if (d.getBeschrijving() == null || d.getBeschrijving().equals("")){
+                beschrijving = "";
+            }
+            else{
                 beschrijving = d.getBeschrijving();
             }
-            if(d.getBeoordeling()!= null){
-                beoordeling = d.getBeoordeling();
-            }
+            beoordeling = d.getBeoordeling();
+
             String klasCode = d.getK().getKlasCode();
             Date datum = d.getDatum();
 
@@ -88,15 +94,20 @@ public class DeadlineDAO extends BaseDAO {
             String beoordeling = "";
 
             String naam = d.getNaam();
-            if(!d.getURI().equals(null)){
+            if (d.getURI() == null || d.getURI().equals(""))
+            {
+                URI = "";
+            }
+            else{
                 URI = d.getURI();
             }
-            if(!d.getBeschrijving().equals(null)){
+            if (d.getBeschrijving() == null || d.getBeschrijving().equals("")){
+                beschrijving = "";
+            }
+            else{
                 beschrijving = d.getBeschrijving();
             }
-            if(d.getBeoordeling()!=null){
-                beoordeling = d.getBeoordeling();
-            }
+            beoordeling = d.getBeoordeling();
             Date datum = d.getDatum();
             int ID = d.getID();
 
@@ -170,9 +181,9 @@ public class DeadlineDAO extends BaseDAO {
     }
 
     public int findID(Deadline d) {
-        int numberOfDeadlinesWithID = selectDeadlines("SELECT * FROM deadline WHERE naam='"+d.getNaam()+"' and beschrijving='"+d.getBeschrijving()+"' and klasCode='"+d.getK().getKlasCode()+"'").size();
+        int numberOfDeadlinesWithID = selectDeadlines("SELECT * FROM deadline WHERE naam='"+d.getNaam()+"' and klasCode='"+d.getK().getKlasCode()+"'").size();
         if(numberOfDeadlinesWithID != 0){
-            Deadline x = selectDeadlines("SELECT * FROM deadline WHERE naam='"+d.getNaam()+"' and beschrijving='"+d.getBeschrijving()+"' and klasCode='"+d.getK().getKlasCode()+"'").get(0);
+            Deadline x = selectDeadlines("SELECT * FROM deadline WHERE naam='"+d.getNaam()+"' and klasCode='"+d.getK().getKlasCode()+"'").get(0);
             int ID = x.getID();
             return ID;
         } else {
