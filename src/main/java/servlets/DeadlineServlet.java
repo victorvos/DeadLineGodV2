@@ -46,9 +46,7 @@ public class DeadlineServlet extends HttpServlet{
             throws ServletException, IOException {
 
         HttpSession session = request.getSession();
-
         RequestDispatcher rd = null;
-
         User userSession = (User) session.getAttribute("loggedUser");
 
         if (request.getParameter("makeDeadline")!=null) {
