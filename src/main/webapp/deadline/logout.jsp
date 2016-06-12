@@ -71,12 +71,6 @@
                 <li>
                     <a href="/index.jsp">Logout</a>
                 </li>
-                <li>
-                    <a href="/blogger/myaccount.jsp">Post Maken</a>
-                </li>
-                <li>
-                    <a href="/blogger/myposts.jsp">Mijn Posts</a>
-                </li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
@@ -91,7 +85,7 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="page-heading">
-                    <h1>Blog Post</h1>
+                    <h1>Logout</h1>
                     <%--<%--%>
                     <%--if ((session.getAttribute("user") == null) || (session.getAttribute("user") == "")) {--%>
                     <%--out.println("You are not logged in");--%>

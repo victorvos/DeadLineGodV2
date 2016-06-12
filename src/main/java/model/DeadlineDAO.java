@@ -27,9 +27,9 @@ public class DeadlineDAO extends BaseDAO {
                 Date datum = dbResultSet.getDate("datum");
                 String klasCode = dbResultSet.getString("klasCode");
 
-                Klas k = new Klas(klasCode);
+                Klas klas = new Klas(klasCode);
 
-                Deadline deadline = new Deadline(naam, datum, k);
+                Deadline deadline = new Deadline(naam, datum, klas);
                 deadline.setBeoordeling(beoordeling);
                 deadline.setID(ID);
                 deadline.setBeschrijving(beschrijving);
