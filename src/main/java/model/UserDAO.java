@@ -78,27 +78,20 @@ public class UserDAO extends BaseDAO {
         return ru;
     }
 
-    public boolean login(User u){
-        boolean login = false;
-
-        String email = u.getEmail();
-
-        if(findByEmail(email)){
-            User user = selectUsers("SELECT * FROM user WHERE email='"+email+"'").get(0);
-            String password = user.getPassword();
-
-            if (password.equals(u.getPassword())) {
-                login = true;
-            } else {
-                login = false;
+    public User login(String email, String password) {
+        User user = null;
+        if (findByEmail(email)) {
+            user = selectUsers("SELECT * FROM user WHERE email='" + email + "'").get(0);
+            if (!password.equals(user.getPassword())) {
+                user = null;
             }
         }
-        return login;
+        return user;
     }
 
-    public User getUser(String email){
+    public User getUser(String email, String password){
         if(findByEmail(email)){
-            User user = selectUsers("SELECT * FROM user WHERE email='"+email+"'").get(0);
+            User user = selectUsers("SELECT * FROM user WHERE email='"+email+"' and password='"+password+"'").get(0);
             return user;
         }
         else{
@@ -106,30 +99,30 @@ public class UserDAO extends BaseDAO {
         }
     }
 
-    public User updateUser(User u) {
-
-        try(Connection con = super.getConnection()) {
-
-            String ID = u.getUserID();
-            String email = u.getEmail();
-            String password = u.getPassword();
-            String naam = u.getNaam();
-            int isDocent = u.getIsDocent();
-            String tussenvoegsel = u.getTussenvoegsel();
-
-            PreparedStatement pstmt = con.prepareStatement("UPDATE user SET email= ?, password = ?, naam = ?, isDocent = ?, tussenvoegsel= ? WHERE ID = ?");
-
-            pstmt.setString(1, email);
-            pstmt.setString(2, password);
-            pstmt.setString(3, naam);
-            pstmt.setInt(4, isDocent);
-            pstmt.setString(5, tussenvoegsel);
-            pstmt.setString(6, ID);
-
-            pstmt.executeUpdate();
-
-        }catch (SQLException sqle) { sqle.printStackTrace(); }
-
-        return u;
-    }
+//    public User updateUser(User u) {
+//
+//        try(Connection con = super.getConnection()) {
+//
+//            String ID = u.getUserID();
+//            String email = u.getEmail();
+//            String password = u.getPassword();
+//            String naam = u.getNaam();
+//            int isDocent = u.getIsDocent();
+//            String tussenvoegsel = u.getTussenvoegsel();
+//
+//            PreparedStatement pstmt = con.prepareStatement("UPDATE user SET email= ?, password = ?, naam = ?, isDocent = ?, tussenvoegsel= ? WHERE ID = ?");
+//
+//            pstmt.setString(1, email);
+//            pstmt.setString(2, password);
+//            pstmt.setString(3, naam);
+//            pstmt.setInt(4, isDocent);
+//            pstmt.setString(5, tussenvoegsel);
+//            pstmt.setString(6, ID);
+//
+//            pstmt.executeUpdate();
+//
+//        }catch (SQLException sqle) { sqle.printStackTrace(); }
+//
+//        return u;
+//    }
 }

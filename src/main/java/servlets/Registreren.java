@@ -45,7 +45,7 @@ public class Registreren extends HttpServlet {
 
         RequestDispatcher rd = null;
 
-        if(emailadres.isEmpty()||naam.isEmpty()||emailadres.isEmpty()|| password1.isEmpty()||password2.isEmpty()||isDocent!=-1||klasCode.isEmpty())        {
+        if(emailadres.isEmpty()||naam.isEmpty()||password1.isEmpty()||password2.isEmpty()||isDocent==-1||klasCode.isEmpty())        {
             rd = request.getRequestDispatcher("registreren.jsp");
             request.setAttribute("message", "<font color=red>Vul alle velden in aub !</font>");
             rd.include(request, response);

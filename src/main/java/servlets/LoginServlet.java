@@ -34,7 +34,7 @@ public class LoginServlet extends HttpServlet {
         HttpSession session = request.getSession();
         RequestDispatcher rd = null;
 
-        User user = userDAO.getUser(emailadres);
+        User user = userDAO.login(emailadres, password);
 
         if (emailadres.isEmpty()||password.isEmpty()) {
             rd = request.getRequestDispatcher("/index.jsp");
@@ -44,7 +44,7 @@ public class LoginServlet extends HttpServlet {
             rd = request.getRequestDispatcher("/index.jsp");
             request.setAttribute("message", "<font color=red>Gebruikersnaam en Wachtwoord combinatie is niet bekend</font>");
             rd.include(request, response);
-        } else if (userDAO.login(user)){
+        } else {
             session.setAttribute("loggedUser", user);
             session.setAttribute("klassen", klasDAO.findAll());
             rd = request.getRequestDispatcher("/deadline/mydeadlines.jsp");
