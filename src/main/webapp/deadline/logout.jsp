@@ -109,11 +109,9 @@
             <!-- NOTE: To use the contact form, your site must be on a live web host with PHP! The form will not work locally! -->
             <form name="sentMessage" action="logout.do" method="post">
                 <%
-                    UserDAO userDAO = null;
-                    User user = null;
-                    user = userDAO.getUser(user.getEmail());
+                    User userSession = (User) session.getAttribute("loggedUser");
 
-                    request.setAttribute("user", user);
+                    request.setAttribute("user", userSession);
                 %>
                 <c:forEach var="post" items="${user}">
                     <div class="user">
@@ -124,4 +122,5 @@
         </div>
     </div>
 </div>
+</body>
 </html>
