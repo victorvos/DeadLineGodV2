@@ -94,8 +94,8 @@ public class DeadlineDAO extends BaseDAO {
 
         try(Connection con = super.getConnection()) {
 
-            String URI = "", beschrijving = "";
-            String beoordeling = "";
+            String URI, beschrijving;
+            String beoordeling;
 
             String naam = d.getNaam();
             if (d.getURI() == null || d.getURI().equals(""))

@@ -96,11 +96,11 @@ public class DeadlineServlet extends HttpServlet{
             String IDParameter = request.getParameter("updateDeadline");
             ID = Integer.parseInt(IDParameter);
 
-            naam = request.getParameter("naamUpdate");
-            beschrijving = request.getParameter("beschrijvingUpdate");
-            URI = request.getParameter("URIUpdate");
+            naam = request.getParameter("naamUpdate"+ID);
+            beschrijving = request.getParameter("beschrijvingUpdate"+ID);
+            URI = request.getParameter("URIUpdate"+ID);
 
-            String startDateStr = request.getParameter("datumUpdate");
+            String startDateStr = request.getParameter("datumUpdate"+ID);
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             java.util.Date datum = null;
 
@@ -113,7 +113,7 @@ public class DeadlineServlet extends HttpServlet{
             }
             sqlDate = new java.sql.Date(datum.getTime());
 
-            beoordeling = request.getParameter("beoordelingUpdate");
+            beoordeling = request.getParameter("beoordelingUpdate"+ID);
 
             if (!beoordeling.equals("")){
                 if(Integer.parseInt(beoordeling) > 10  || Integer.parseInt(beoordeling) <= 0){
@@ -151,11 +151,11 @@ public class DeadlineServlet extends HttpServlet{
             String IDParameter = request.getParameter("deleteDeadline");
             ID = Integer.parseInt(IDParameter);
 
-            naam = request.getParameter("naamUpdate");
-            beschrijving = request.getParameter("beschrijvingUpdate");
-            URI = request.getParameter("URIUpdate");
+            naam = request.getParameter("naamUpdate"+ID);
+            beschrijving = request.getParameter("beschrijvingUpdate"+ID);
+            URI = request.getParameter("URIUpdate"+ID);
 
-            String startDateStr = request.getParameter("datumUpdate");
+            String startDateStr = request.getParameter("datumUpdate"+ID);
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             java.util.Date datum = null;
 
@@ -168,7 +168,7 @@ public class DeadlineServlet extends HttpServlet{
             }
             sqlDate = new java.sql.Date(datum.getTime());
 
-            beoordeling = request.getParameter("beoordelingUpdate");
+            beoordeling = request.getParameter("beoordelingUpdate"+ID);
 
             if (userSession == null) {
                 rd = request.getRequestDispatcher("index.jsp");

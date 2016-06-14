@@ -228,14 +228,14 @@
                             <div class="row control-group">
                                 <div class="form-group col-xs-12 floating-label-form-group controls">
                                     <label>Datum</label>
-                                    <input type="text" placeholder="Datum*" name="datumUpdate" value="${post.datum}"
+                                    <input type="text" placeholder="Datum*" name="datumUpdate${post.ID}" value="${post.datum}"
                                            size="40" readonly>
                                 </div>
                             </div>
                             <div class="row control-group">
                                 <div class="form-group col-xs-12 floating-label-form-group controls">
                                     <label>Naam</label>
-                                    <input type="text" placeholder="Naam*" name="naamUpdate" value="${post.naam}"
+                                    <input type="text" placeholder="Naam*" name="naamUpdate${post.ID}" value="${post.naam}"
                                            size="40" readonly>
                                 </div>
                             </div>
@@ -243,20 +243,20 @@
                                 <div class="form-group col-xs-12 floating-label-form-group controls">
                                     <label>Beschrijving</label>
                                     <textarea rows="4" cols="40" placeholder="Beschrijving"
-                                              name="beschrijvingUpdate">${post.beschrijving}</textarea>
+                                              name="beschrijvingUpdate${post.ID}">${post.beschrijving}</textarea>
                                 </div>
                             </div>
                             <div class="row control-group">
                                 <div class="form-group col-xs-12 floating-label-form-group controls">
                                     <label>URI</label>
-                                    <input type="text" placeholder="URI" name="URIUpdate" value="${post.URI}" size="40">
+                                    <input type="text" placeholder="URI" name="URIUpdate${post.ID}" value="${post.URI}" size="40">
                                 </div>
                             </div>
                             <c:if test="${user.isDocent() == 1}">
                                 <div class="row control-group">
                                     <div class="form-group col-xs-12 floating-label-form-group controls">
                                         <label>Beoordeling</label>
-                                        <input type="text" placeholder="beoordeling" name="beoordelingUpdate"
+                                        <input type="text" placeholder="beoordeling" name="beoordelingUpdate${post.ID}"
                                                value="${post.beoordeling}" size="40">
                                     </div>
                                 </div>
@@ -265,7 +265,7 @@
                                 <div class="row control-group">
                                     <div class="form-group col-xs-12 floating-label-form-group controls">
                                         <label>Beoordeling</label>
-                                        <input type="text" placeholder="beoordeling" name="beoordelingUpdate"
+                                        <input type="text" placeholder="beoordeling" name="beoordelingUpdate${post.ID}"
                                                value="${post.beoordeling}" size="40" readonly>
                                     </div>
                                 </div>
@@ -310,7 +310,7 @@
                 <div class="modal-dialog" id="myModal${vs.index}" `role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title" id="myModalLabelMonth">${post.datum} - <b>${post.naam}</b></h4>
+                            <h4 class="modal-title" id="myModalLabel">${post.datum} - <b>${post.naam}</b></h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -319,14 +319,14 @@
                             <div class="row control-group">
                                 <div class="form-group col-xs-12 floating-label-form-group controls">
                                     <label>Datum</label>
-                                    <input type="text" placeholder="Datum*" name="datumUpdate" value="${post.datum}"
+                                    <input type="text" placeholder="Datum*" name="datumUpdate${post.ID}" value="${post.datum}"
                                            size="40" readonly>
                                 </div>
                             </div>
                             <div class="row control-group">
                                 <div class="form-group col-xs-12 floating-label-form-group controls">
                                     <label>Naam</label>
-                                    <input type="text" placeholder="Naam*" name="naamUpdate" value="${post.naam}"
+                                    <input type="text" placeholder="Naam*" name="naamUpdate${post.ID}" value="${post.naam}"
                                            size="40" readonly>
                                 </div>
                             </div>
@@ -334,20 +334,20 @@
                                 <div class="form-group col-xs-12 floating-label-form-group controls">
                                     <label>Beschrijving</label>
                                     <textarea rows="4" cols="40" placeholder="Beschrijving"
-                                              name="beschrijvingUpdate">${post.beschrijving}</textarea>
+                                              name="beschrijvingUpdate${post.ID}">${post.beschrijving}</textarea>
                                 </div>
                             </div>
                             <div class="row control-group">
                                 <div class="form-group col-xs-12 floating-label-form-group controls">
                                     <label>URI</label>
-                                    <input type="text" placeholder="URI" name="URIUpdate" value="${post.URI}" size="40">
+                                    <input type="text" placeholder="URI" name="URIUpdate${post.ID}" value="${post.URI}" size="40">
                                 </div>
                             </div>
                             <c:if test="${user.isDocent() == 1}">
                                 <div class="row control-group">
                                     <div class="form-group col-xs-12 floating-label-form-group controls">
                                         <label>Beoordeling</label>
-                                        <input type="text" placeholder="beoordeling" name="beoordelingUpdate"
+                                        <input type="text" placeholder="beoordeling" name="beoordelingUpdate${post.ID}"
                                                value="${post.beoordeling}" size="40">
                                     </div>
                                 </div>
@@ -356,7 +356,7 @@
                                 <div class="row control-group">
                                     <div class="form-group col-xs-12 floating-label-form-group controls">
                                         <label>Beoordeling</label>
-                                        <input type="text" placeholder="beoordeling" name="beoordelingUpdate"
+                                        <input type="text" placeholder="beoordeling" name="beoordelingUpdate${post.ID}"
                                                value="${post.beoordeling}" size="40" readonly>
                                     </div>
                                 </div>
@@ -378,6 +378,7 @@
             </div>
         </div>
     </c:forEach>
+    </form>
 </div>
 
 </form>

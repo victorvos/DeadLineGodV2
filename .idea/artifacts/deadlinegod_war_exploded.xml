@@ -15,6 +15,7 @@
           <element id="library" level="project" name="Maven: org.glassfish.jersey.bundles.repackaged:jersey-guava:2.22.2" />
           <element id="library" level="project" name="Maven: org.glassfish.hk2:hk2-api:2.4.0-b34" />
           <element id="library" level="project" name="Maven: org.glassfish.hk2:hk2-utils:2.4.0-b34" />
+          <element id="library" level="project" name="Maven: org.glassfish.hk2.external:aopalliance-repackaged:2.4.0-b34" />
           <element id="library" level="project" name="Maven: org.glassfish.hk2:hk2-locator:2.4.0-b34" />
           <element id="library" level="project" name="Maven: org.javassist:javassist:3.18.1-GA" />
           <element id="library" level="project" name="Maven: org.glassfish.hk2:osgi-resource-locator:1.0.1" />
@@ -28,7 +29,6 @@
           <element id="library" level="project" name="Maven: mysql:mysql-connector-java:5.1.25" />
           <element id="library" level="project" name="Maven: org.jetbrains:annotations-java5:15.0" />
           <element id="library" level="project" name="Maven: commons-collections:commons-collections:3.2.1" />
-          <element id="library" level="application" name="Maven: org.glassfish.hk2.external:aopalliance-repackaged:2.4.0-b34" />
         </element>
       </element>
       <element id="directory" name="META-INF">
