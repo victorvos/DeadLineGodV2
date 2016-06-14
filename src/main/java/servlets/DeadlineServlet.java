@@ -28,19 +28,6 @@ public class DeadlineServlet extends HttpServlet{
         dDAO = new DeadlineDAO();
     }
 
-    public void messageBeoordeling(String beoordeling, HttpServletRequest request){
-        if (!beoordeling.equals("")){
-            if(Integer.parseInt(beoordeling) > 10  || Integer.parseInt(beoordeling) < 0){
-                request.setAttribute("message", "<font color=red>Vul alle verplichte velden in aub en een beoordeling Cijfer 1-10!</font>");
-            }
-            else{
-                request.setAttribute("message", "<font color=red>Vul alle verplichte velden in aub !</font>");
-            }
-        }
-        else{
-            request.setAttribute("message", "<font color=red>Vul alle verplichte velden in aub !</font>");
-        }
-    }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -71,12 +58,21 @@ public class DeadlineServlet extends HttpServlet{
             beoordeling = request.getParameter("beoordeling");
             beschrijving = request.getParameter("beschrijving");
 
+            if (!beoordeling.equals("")){
+                if(Integer.parseInt(beoordeling) > 10  || Integer.parseInt(beoordeling) <= 0){
+                    request.setAttribute("message", "<font color=red>Vul alle verplichte velden in aub en een beoordeling Cijfer 1-10!</font>");
+                }
+                else{
+                    request.setAttribute("message", "");
+                }
+            }
+
             if (userSession == null) {
                 rd = request.getRequestDispatcher("index.jsp");
                 request.setAttribute("message", "<font color=red>U bent nog niet ingelogd</font>");
                 rd.forward(request, response);
-            } else if (naam.equals("") | sqlDate.equals(""))  {
-               messageBeoordeling(beoordeling, request);
+            } else if (naam.equals("") || sqlDate.equals(""))  {
+                request.setAttribute("message", "<font color=red>Vul alle verplichte velden in aub !</font>");
                 rd = request.getRequestDispatcher("/deadline/mydeadlines.jsp");
                 rd.forward(request, response);
             } else {
@@ -119,13 +115,18 @@ public class DeadlineServlet extends HttpServlet{
 
             beoordeling = request.getParameter("beoordelingUpdate");
 
+            if (!beoordeling.equals("")){
+                if(Integer.parseInt(beoordeling) > 10  || Integer.parseInt(beoordeling) <= 0){
+                    request.setAttribute("message", "<font color=red>Vul alle verplichte velden in aub en een beoordeling Cijfer 1-10!</font>");
+                }
+                else{
+                    request.setAttribute("message", "");
+                }
+            }
+
             if (userSession == null) {
                 rd = request.getRequestDispatcher("index.jsp");
                 request.setAttribute("message", "<font color=red>U bent nog niet ingelogd</font>");
-                rd.forward(request, response);
-            } else if (naam.equals("") | sqlDate.equals("")) {
-                messageBeoordeling(beoordeling, request);
-                rd = request.getRequestDispatcher("/deadline/mydeadlines.jsp");
                 rd.forward(request, response);
             } else {
                 Deadline deadLine = new Deadline(naam, sqlDate, userSession.getK());
@@ -172,10 +173,6 @@ public class DeadlineServlet extends HttpServlet{
             if (userSession == null) {
                 rd = request.getRequestDispatcher("index.jsp");
                 request.setAttribute("message", "<font color=red>U bent nog niet ingelogd</font>");
-                rd.forward(request, response);
-            } else if (naam.equals("") | sqlDate.equals("")) {
-                messageBeoordeling(beoordeling, request);
-                rd = request.getRequestDispatcher("/deadline/mydeadlines.jsp");
                 rd.forward(request, response);
             } else {
                 Deadline deadLine = new Deadline(naam, sqlDate, userSession.getK());
