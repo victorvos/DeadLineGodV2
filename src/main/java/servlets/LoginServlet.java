@@ -39,11 +39,11 @@ public class LoginServlet extends HttpServlet {
         if (emailadres.isEmpty()||password.isEmpty()) {
             rd = request.getRequestDispatcher("/index.jsp");
             request.setAttribute("message", "<font color=red>Vul alle velden in aub !</font>");
-            rd.include(request, response);
+            rd.forward(request, response);
         } else if (user == null) {
             rd = request.getRequestDispatcher("/index.jsp");
             request.setAttribute("message", "<font color=red>Gebruikersnaam en Wachtwoord combinatie is niet bekend</font>");
-            rd.include(request, response);
+            rd.forward(request, response);
         } else {
             session.setAttribute("loggedUser", user);
             session.setAttribute("klassen", klasDAO.findAll());
