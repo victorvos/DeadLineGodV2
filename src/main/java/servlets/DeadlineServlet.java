@@ -74,11 +74,11 @@ public class DeadlineServlet extends HttpServlet{
             if (userSession == null) {
                 rd = request.getRequestDispatcher("index.jsp");
                 request.setAttribute("message", "<font color=red>U bent nog niet ingelogd</font>");
-                rd.include(request, response);
+                rd.forward(request, response);
             } else if (naam.equals("") | sqlDate.equals(""))  {
                messageBeoordeling(beoordeling, request);
                 rd = request.getRequestDispatcher("/deadline/mydeadlines.jsp");
-                rd.include(request, response);
+                rd.forward(request, response);
             } else {
                 Deadline deadLine = new Deadline(naam, sqlDate, userSession.getK());
                 if (!URI.isEmpty()) {
@@ -122,11 +122,11 @@ public class DeadlineServlet extends HttpServlet{
             if (userSession == null) {
                 rd = request.getRequestDispatcher("index.jsp");
                 request.setAttribute("message", "<font color=red>U bent nog niet ingelogd</font>");
-                rd.include(request, response);
+                rd.forward(request, response);
             } else if (naam.equals("") | sqlDate.equals("")) {
                 messageBeoordeling(beoordeling, request);
                 rd = request.getRequestDispatcher("/deadline/mydeadlines.jsp");
-                rd.include(request, response);
+                rd.forward(request, response);
             } else {
                 Deadline deadLine = new Deadline(naam, sqlDate, userSession.getK());
                 if (!URI.isEmpty()) {
@@ -172,11 +172,11 @@ public class DeadlineServlet extends HttpServlet{
             if (userSession == null) {
                 rd = request.getRequestDispatcher("index.jsp");
                 request.setAttribute("message", "<font color=red>U bent nog niet ingelogd</font>");
-                rd.include(request, response);
+                rd.forward(request, response);
             } else if (naam.equals("") | sqlDate.equals("")) {
                 messageBeoordeling(beoordeling, request);
                 rd = request.getRequestDispatcher("/deadline/mydeadlines.jsp");
-                rd.include(request, response);
+                rd.forward(request, response);
             } else {
                 Deadline deadLine = new Deadline(naam, sqlDate, userSession.getK());
                 if (!URI.isEmpty()) {
