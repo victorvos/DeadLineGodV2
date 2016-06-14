@@ -1,13 +1,10 @@
 <%@ page import="model.User" %>
-<%@ page import="java.util.ArrayList" %>
 <%@ page import="model.Deadline" %>
 <%@ page import="java.util.List" %>
 <%@ page import="model.DeadlineDAO" %>
 <%@ page import="java.text.SimpleDateFormat" %>
-<%@ page import="java.text.ParseException" %>
 <%@ page import="java.text.DateFormat" %>
 <%@ page import="java.util.Calendar" %>
-<%@ page import="model.KlasDAO" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
          pageEncoding="ISO-8859-1" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -219,7 +216,7 @@
                 <div class="modal-dialog" id="myModal${vs.index}" `role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title" id="myModalLabel">${post.datum} - <b>${post.naam}</b></h4>
+                            <h4 class="modal-title" id="myModalLabelMonth">${post.datum} - <b>${post.naam}</b></h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -287,7 +284,6 @@
             </div>
         </div>
     </c:forEach>
-    </form>
 </div>
 
 <div class="deadlineThisMonth" id="deadlineThisMonth" style="width:350px;
@@ -378,8 +374,9 @@
             </div>
         </div>
     </c:forEach>
-    </form>
+
 </div>
+</form>
 
 </form>
 
